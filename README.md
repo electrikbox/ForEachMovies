@@ -1,18 +1,42 @@
 # ForEach Movies
-
 ## Install
+### with docker
 
-- First, navigate to the Dockerfile location dir.
+- First, navigate to the Dockerfile location dir
 - Create the docker image for the app
 ```
 docker build -t foreachmovies .
 ```
-- Run the docker to launch the app
+### Manually
+- install react
 ```
-docker run -p 3000:3000 foreachmovies
+npm install
+```
+- install Sass and React-router-dom
+```
+npm install -g sass react-router-dom
+```
+
+## Dependencies
+All dependencies are managed by the Dockerfile, but if you want to work without docker you can install it with this command:
+```
+npm install sass react-router-dom
 ```
 
 ## Usage
+### With docker
+```
+docker run -p 3000:3000 foreachmovies
+```
+### Manually
+- In a terminal from 'foreach-movies-app' dir
+```
+npm start
+```
+- If you want to see style changes withoutneed to relaunch the app, do this command in another terminal ffrom 'foreach-movies-app' dir
+```
+sass --watch src/css/main.scss src/css/style.css
+```
 
 In the project directory, you can run:
 
@@ -41,20 +65,6 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ## Features
 ... content to add ...
-
-## Dependencies
-Toutes les dépendences sont gérer par le docker file, mais pour information, le projet utilise React, Sass et React-router-dom
-
-installation des dependences :
-```
-npm install react
-```
-```
-npm install sass
-```
-```
-npm install react-router-dom
-```
 
 ## Authors
 **Olive t'Servrancx** on [Linkedin](https://www.linkedin.com/in/olivier-tservrancx/) and on [Github](https://github.com/electrikbox)
