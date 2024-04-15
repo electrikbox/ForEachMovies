@@ -3,15 +3,12 @@ FROM node:alpine
 WORKDIR /app
 
 COPY package*.json ./
-
 RUN npm install
-RUN npm install sass
-RUN npm install react-router-dom
+RUN npm install -g sass react-router-dom
 
 COPY . .
 
-RUN npm run build
-
-EXPOSE 3000
+# RUN npm run build
+# EXPOSE 3000
 
 CMD ["npm", "start"]
