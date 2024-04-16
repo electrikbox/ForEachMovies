@@ -1,16 +1,24 @@
 import React from 'react';
 import TruncateText from '../utils/TruncateText';
-import { Link } from 'react-router-dom';
+import store from '../store';
+import { useNavigate } from 'react-router-dom';
+import { getMovieById } from '../actions/movieById.action';
 
 
-/**
- * Movie item component.
- *
- * @component
- * @param {Object} props.movie - The movie object.
- * @returns {JSX.Element} The rendered movie item component.
- */
 const MovieItem = ({ movie }) => {
+
+  const navigate = useNavigate();
+
+  const storeMovieId = () => {
+    store.dispatch(getMovieById(movie.id))
+      .then(() => {
+        navigate(`/moviedetail/${movie.id}`);
+      })
+      .catch((error) => {
+        console.error('Error fetching movie:', error);
+      });
+  }
+
   return (
     <li key={movie.id} className='movie-card'>
       <h3 className='movie-title'>{movie.original_title}</h3>
@@ -23,9 +31,9 @@ const MovieItem = ({ movie }) => {
         text={movie.overview ? movie.overview : 'No description available...'}
         maxLength={150} />
       {movie.vote_count > 0 ? <p>{Number(movie.vote_average).toFixed(1)}/10</p> : <p>no note</p>}
-      <Link to={`/moviedetail/${movie.id}`}>Details</Link>
+      <button type="button" onClick={storeMovieId}>Detail</button>
     </li>
   );
 };
 
-export default MovieItem;
+export default React.memo(MovieItem);
