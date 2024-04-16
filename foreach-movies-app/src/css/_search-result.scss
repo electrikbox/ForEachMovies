@@ -1,0 +1,15 @@
+.search-result {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1em;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+}
