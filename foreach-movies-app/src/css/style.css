@@ -131,11 +131,29 @@ footer {
 .movie-card h3 {
   font-size: 1.2em;
   text-align: center;
+  color: #282c34;
+}
+.movie-card h5 {
+  font-size: 0.9em;
+  text-align: center;
+  color: rgb(80, 80, 80);
+  font-weight: normal;
 }
 .movie-card .movie-desc {
   font-size: 1em;
   text-align: start;
   width: 89%;
+}
+.movie-card a {
+  padding: 0.5em 1em;
+  border-radius: 2px;
+  background-color: #3b7e91;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+.movie-card a:hover {
+  background-color: rgba(59, 126, 145, 0.5);
 }
 
 .search-bar {
