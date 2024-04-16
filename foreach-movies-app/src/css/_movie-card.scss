@@ -1,0 +1,31 @@
+.movie-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 30em;
+    gap: 1em;
+    padding: 1em;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+    @media screen and (max-width: 768px){
+        width: 90%;
+    }
+    img {
+        width: 25em;
+        border-radius: 5px;
+        @media screen and (max-width: 768px){
+            width: 95%;
+        }
+    }
+    h3 {
+        font-size: 1.2em;
+        text-align: center;
+    }
+    .movie-desc {
+        font-size: 1em;
+        text-align: start;
+        width: 89%;
+    }
+}
