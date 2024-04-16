@@ -1,0 +1,22 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  li {
+    display: inline-block;
+    a {
+      display: flex;
+      padding: 5px;
+      border: 1px solid #ccc;
+      color: #333;
+      text-decoration: none;
+      &:hover {
+        background-color: #f0f0f0;
+      }
+    }
+    &.active a {
+      background-color: #007bff;
+      color: #fff;
+    }
+  }
+}

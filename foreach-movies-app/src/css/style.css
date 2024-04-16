@@ -63,4 +63,76 @@ footer {
   margin-top: auto;
 }
 
+.search-result {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+.search-result ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1em;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.search-result ul li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30em;
+  gap: 1em;
+  padding: 1em;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+}
+@media screen and (max-width: 768px) {
+  .search-result ul li {
+    width: 90%;
+  }
+}
+.search-result ul li img {
+  width: 25em;
+  border-radius: 5px;
+}
+@media screen and (max-width: 768px) {
+  .search-result ul li img {
+    width: 95%;
+  }
+}
+.search-result ul li h2 {
+  font-size: 1.5em;
+  text-align: center;
+}
+.search-result ul li p {
+  font-size: 1em;
+  text-align: center;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.pagination li {
+  display: inline-block;
+}
+.pagination li a {
+  display: flex;
+  padding: 5px;
+  border: 1px solid #ccc;
+  color: #333;
+  text-decoration: none;
+}
+.pagination li a:hover {
+  background-color: #f0f0f0;
+}
+.pagination li.active a {
+  background-color: #007bff;
+  color: #fff;
+}
+
 /*# sourceMappingURL=style.css.map */
