@@ -1,23 +1,39 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import store from '../store';
+import { getMovies } from '../actions/movies.action';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
-/**
- * Header component.
- * @component
- */
 const Header = () => {
   const [query, setQuery] = useState('');
 
-  const handleKeyPress = (event) => {
-    if (event.key === 'Enter') {
-      window.location.href = `/search-results?query=${query}`;
+  const navigate = useNavigate();
+  const param = useParams();
+
+  const handleSearch = () => {
+    store.dispatch(getMovies(query, 1))
+      .then(() => {
+        param.page = 1;
+        param.query = query;
+        navigate('/search-results?query=' + param.query);
+      })
+      .catch((error) => {
+        console.error('Error fetching movies:', error);
+      });
+  };
+
+  const handleKeyPress = async (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSearch();
     }
   };
 
   return (
     <header className="App-header">
-      <img src="./logo.svg" className="App-logo" alt="logo" />
+      <a href="/">
+        <img src="./logo.svg" className="App-logo" alt="logo" />
+      </a>
       <div className='search-bar'>
         <input
           type="text"
@@ -25,7 +41,7 @@ const Header = () => {
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyPress}
           placeholder="Search for movies..." />
-        <Link to={`/search-results?query=${query}`}>Search</Link>
+        <button type="button" onClick={handleSearch}>Search</button>
       </div>
     </header>
   );
