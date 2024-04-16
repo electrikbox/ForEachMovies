@@ -12,15 +12,15 @@ docker build -t foreachmovies .
 ```
 npm install
 ```
-- install Sass and React-router-dom
+- create a .env file at the root dir with your api key
 ```
-npm install -g sass react-router-dom
+API_KEY=xxxxxxxxxxxxxxxxxxxx
 ```
 
 ## Dependencies
 All dependencies are managed by the Dockerfile, but if you want to work without docker you can install it with this command:
 ```
-npm install sass react-router-dom
+npm install sass react-router-dom reat-dotenv react-paginate
 ```
 
 ## Usage
