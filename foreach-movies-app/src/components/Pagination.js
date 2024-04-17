@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate';
 
+
 /**
  * Pagination component.
  *
@@ -24,7 +25,6 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
       containerClassName={'pagination'}
       subContainerClassName={'pages pagination'}
       activeClassName={'active'}
-      forcePage={currentPage - 1}
     />
   );
 };

@@ -1,12 +1,11 @@
 import React from 'react';
 import TruncateText from '../utils/TruncateText';
-import store from '../store';
+import { store } from '../store';
 import { useNavigate } from 'react-router-dom';
 import { getMovieById } from '../actions/movieById.action';
 
 
 const MovieItem = ({ movie }) => {
-
   const navigate = useNavigate();
 
   const storeMovieId = () => {
@@ -24,7 +23,7 @@ const MovieItem = ({ movie }) => {
       <h3 className='movie-title'>{movie.original_title}</h3>
       <h5>({movie.title})</h5>
       <img
-        src={movie.poster_path ? `https://image.tmdb.org/t/p/w300${movie.poster_path}` : 'no-poster.jpg'}
+        src={movie.poster_path ? `https://image.tmdb.org/t/p/w300${movie.poster_path}` : '/no-poster.jpg'}
         alt={movie.title}
       />
       <TruncateText
