@@ -1,27 +1,26 @@
 import Pagination from './Pagination';
 import MovieCard from './MovieCard';
-import store from '../store';
+import { store } from '../store';
 import { useSelector } from 'react-redux';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { getMovies } from '../actions/movies.action';
+import { useState } from 'react';
 
 
 const SearchResultsPage = () => {
-  const location = useLocation();
-  const param = useParams();
-  const navigate = useNavigate();
-
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [error, setError] = useState('');
   const movies = useSelector((state) => state.movies);
 
   const handlePageChange = ({ selected }) => {
     const nextPage = selected + 1;
-    param.page = nextPage;
-    param.query = location.search.split('=')[1];
-    store.dispatch(getMovies(param.query, nextPage))
+    const query = searchParams.get('movie');
+    store.dispatch(getMovies(query, nextPage))
       .then(() => {
-        navigate('/search-results?query=' + param.query);
+        setSearchParams({ movie: query, page: nextPage });
       })
       .catch((error) => {
+        setError('Error fetching movies.');
         console.error('Error fetching movies:', error);
       });
   };
@@ -35,6 +34,7 @@ const SearchResultsPage = () => {
           ))}
         </ul>
       </div>
+      {error && <p>{error}</p>}
       <Pagination
         totalPages={movies.total_pages}
         currentPage={movies.page}
