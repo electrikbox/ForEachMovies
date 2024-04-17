@@ -1,16 +1,15 @@
+import React from 'react';
 import { useSelector } from 'react-redux';
 
 
 const MovieDetail = () => {
   const movie = useSelector((state) => state.movieById);
-  console.log(movie);
 
   return (
     <main>
-      <h1>Movie Detail</h1>
       <div className='movie-detail'>
         <img
-          src={movie.poster_path ? `https://image.tmdb.org/t/p/w400${movie.poster_path}` : 'no-poster.jpg'}
+          src={movie.poster_path ? `https://image.tmdb.org/t/p/w400${movie.poster_path}` : '/no-poster.jpg'}
           alt={movie.title}
         />
         <h2>{movie.original_title}</h2>
