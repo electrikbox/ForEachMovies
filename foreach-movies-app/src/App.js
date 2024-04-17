@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './components/HomePage';
+import Movies from "./components/Movies";
 import MovieDetail from './components/MovieDetailPage';
 import MoviesGenre from './components/MoviesGenre';
 import SearchResults from './components/SearchResultsPage';
@@ -19,7 +20,8 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/moviedetail/:id" element={<MovieDetail />} />
           <Route path="/moviesgenre" element={<MoviesGenre />} />
-          <Route path="/search-results" element={<SearchResults />} />
+          <Route path="/movies" element={<Movies />} />
+          <Route path="/movies/search" element={<SearchResults />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />
