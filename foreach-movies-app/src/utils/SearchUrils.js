@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import { getMovies } from '../actions/movies.action';
 import { store } from '../store';
 
-const useHandleSearch = () => {
+export const useHandleSearch = () => {
   const [query, setQuery] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
