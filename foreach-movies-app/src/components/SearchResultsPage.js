@@ -1,61 +1,65 @@
 import Pagination from './Pagination';
 import MovieCard from './MovieCard';
+import SearchBar from './SearchBar';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useQuery } from 'react-query';
+import { getSearchMovies } from '../utils/requests';
 
-const API_KEY = process.env.REACT_APP_API_KEY;
 
 const SearchResultsPage = () => {
   const [searchParams] = useSearchParams();
-  const [error, setError] = useState('');
-  const [movies, setMovies] = useState([]);
-  const [total_pages, setTotalPages] = useState(0);
-  const [page, setPage] = useState(0);
+  const [currentPage, setPage] = useState(searchParams.get('page'));
+  const query = searchParams.get('movie');
   const navigate = useNavigate();
 
-  const onPageChange = ({ selected }) => {
-    const nextPage = selected + 1;
-    const query = searchParams.get('movie');
-    axios.get(`https://api.themoviedb.org/3/search/movie?include_adult=false`, {
-      params: {
-        api_key: API_KEY,
-        query: query,
-        page: nextPage,
-      }
-    })
-    .then((response) => {
-      setMovies(response.data.results);
-      setTotalPages(response.data.total_pages)
-      setPage(response.data.page);
-      window.scrollTo(0, 0);
-    })
-    .catch((error) => {
-      setError('Failed to fetch detail result.');
-      console.error('Error fetching movies:', error);
-    });
-  };
+  const { data, refetch, isFetching } = useQuery(
+    query,
+    () => getSearchMovies(query, currentPage),
+    {
+      staleTime: 60_000,
+      cacheTime: 60_000,
+      enabled: true,
+    }
+  );
 
   useEffect(() => {
-    onPageChange({ selected: 0 });
-  }, [searchParams, navigate]);
+    searchParams.set('page', currentPage);
+    if (!window.location.search) {
+      setPage(1)
+      return;
+    }
+    navigate(`/movies/search?movie=${query}&page=${currentPage}`);
+    refetch({ page: currentPage });
+    window.scrollTo(0, 0);
+  }, [currentPage, refetch, searchParams, navigate, query]);
+
+  const movies = data ? data.results : [];
+  const total_pages = data ? data.total_pages : 0;
+
+  const onPageChange = ({ selected }) => {
+    setPage(selected + 1);
+  };
 
   return (
-    <main>
-      {error && <p>{error}</p>}
-      <div className='search-result'>
-        <ul>
-          {movies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))}
-        </ul>
-      </div>
-      <Pagination
-          totalPages={total_pages}
-          currentPage={page}
-          onPageChange={onPageChange} />
-    </main>
+    <div>
+      {!window.location.search ? <SearchBar /> :
+        <>
+          {isFetching && <p>Fetching...</p>}
+          <div className='search-result'>
+            <ul>
+              {movies.map((movie) => (
+                <MovieCard key={movie.id} movie={movie} />
+              ))}
+            </ul>
+          </div>
+          <Pagination
+            totalPages={total_pages}
+            currentPage={currentPage}
+            onPageChange={onPageChange}
+          />
+        </>}
+    </div>
   );
 };
-
 export default SearchResultsPage;

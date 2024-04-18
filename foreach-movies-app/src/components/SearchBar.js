@@ -1,12 +1,21 @@
-import React from 'react';
-import useHandleSearch from '../utils/SearchUrils';
+import React, { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 const SearchBar = () => {
-  const { query, setQuery, handleKeyPress, inputRef } = useHandleSearch();
+  const [query, setQuery] = useState('');
+  const navigate = useNavigate();
+  const inputRef = useRef(null);
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      navigate(`/movies/search?movie=${query}&page=1`);
+      inputRef.current.blur();
+    }
+  };
 
   return (
-    <div className='search-bar'>
       <input
         type="text"
         value={query}
@@ -14,8 +23,6 @@ const SearchBar = () => {
         onKeyDown={handleKeyPress}
         placeholder="Search for movies..."
         ref={inputRef} />
-      {/* <button type="button" onClick={handleSearch}>Search</button> */}
-    </div>
   );
 }
 

@@ -1,12 +1,14 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
 const MovieDetail = () => {
-  const [movie, setMovie] = React.useState({});
+  const [movie, setMovie] = useState({});
   const param = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get(`https://api.themoviedb.org/3/movie/${param.id}`, {
@@ -42,6 +44,7 @@ const MovieDetail = () => {
             ))}
           </ul>
         )}
+        <button onClick={() => navigate(-1)}>Go back</button>
       </div>
     </main>
   );

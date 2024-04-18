@@ -1,29 +1,23 @@
-import React, { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import axios from 'axios';
+import { getMoviesGenres } from "../utils/requests";
+import { useQuery } from 'react-query';
 
-const API_KEY = process.env.REACT_APP_API_KEY;
 
 const GenreMenu = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const [genres, setGenres] = React.useState([]);
 
-  useEffect(() => {
-    axios.get('https://api.themoviedb.org/3/genre/movie/list?language=en', {
-      params: {
-        api_key: API_KEY,
-      }
-    })
-      .then((response) => {
-        setGenres(response.data.genres);
-        console.log(response.data.genres);
-      })
-      .catch((error) => {
-        console.error('Error fetching genres:', error);
-        throw new Error('Failed to fetch detail result.');
-      });
-  }, []);
+  const { data } = useQuery(
+    'genre',
+    () => getMoviesGenres(),
+    {
+      staleTime: 60_000,
+      cacheTime: 60_000,
+      enabled: true,
+    }
+  );
+
+  const genres = data ? data.genres : [];
 
   const updateURL = (e) => {
     const genreId = e.target.value;

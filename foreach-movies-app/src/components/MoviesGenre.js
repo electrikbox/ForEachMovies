@@ -1,49 +1,44 @@
 import GenreMenu from './GenresMenu';
-import { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
 import MovieCard from './MovieCard';
 import Pagination from './Pagination';
-import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { getMoviesByGenre } from '../utils/requests';
 
-const API_KEY = process.env.REACT_APP_API_KEY;
 
 const MoviesGenre = () => {
   const [searchParams] = useSearchParams();
-  const [error, setError] = useState('');
-  const [movies, setMovies] = useState([]);
-  const [total_pages, setTotalPages] = useState(0);
-  const [page, setPage] = useState(0);
+  const [currentPage, setPage] = useState(searchParams.get('page'));
+  const genre = searchParams.get('genre');
   const navigate = useNavigate();
 
-  const onPageChange = ({ selected }) => {
-    const nextPage = selected + 1;
-    const id = searchParams.get('genre');
-      axios.get(`https://api.themoviedb.org/3/discover/movie?include_adult=false&language=en-US`, {
-      params: {
-        api_key: API_KEY,
-        page: nextPage,
-        with_genres: id
-      }
-    })
-    .then((response) => {
-      response.data.total_pages > 500 ? setTotalPages(500) : setTotalPages(response.total_pages);
-      setMovies(response.data.results);
-      setPage(response.data.page);
-      window.scrollTo(0, 0);
-    })
-    .catch((error) => {
-      setError('Failed to fetch detail result.');
-      console.error('Error fetching movies:', error);
-    });
-  };
+  const { data, refetch } = useQuery(
+    genre,
+    () => getMoviesByGenre(genre, currentPage),
+    {
+      staleTime: 60_000,
+      cacheTime: 60_000,
+      enabled: true,
+    }
+  );
 
   useEffect(() => {
-    onPageChange({ selected: 0 });
-  }, [searchParams, navigate]);
+    searchParams.set('page', currentPage);
+    navigate(`/moviesgenre?genre=${genre}&page=${currentPage}`);
+    refetch({ page: currentPage });
+    window.scrollTo(0, 0);
+  }, [currentPage, refetch, searchParams, navigate, genre]);
+
+  const movies = data ? data.results : [];
+  const total_pages = data ? (data.total_pages > 500 ? 500 : data.total_pages) : 0;
+
+  const onPageChange = ({ selected }) => {
+    setPage(selected + 1);
+  };
 
   return (
     <main>
-      {error && <p>{error}</p>}
       <GenreMenu />
       {!searchParams.get('genre') ? <p>Please select a genre</p> :
       <>
@@ -56,7 +51,7 @@ const MoviesGenre = () => {
         </div>
         <Pagination
           totalPages={total_pages}
-          currentPage={page}
+          currentPage={currentPage}
           onPageChange={onPageChange} />
       </>}
     </main>
