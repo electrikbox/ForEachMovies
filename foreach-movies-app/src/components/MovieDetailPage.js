@@ -1,9 +1,26 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import axios from 'axios';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 const MovieDetail = () => {
-  const movie = useSelector((state) => state.movieById);
+  const [movie, setMovie] = React.useState({});
+  const param = useParams();
+
+  useEffect(() => {
+    axios.get(`https://api.themoviedb.org/3/movie/${param.id}`, {
+      params: {
+        api_key: API_KEY,      }
+    })
+      .then((response) => {
+        setMovie(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching genres:', error);
+        throw new Error('Failed to fetch detail result.');
+      });
+  }, [movie, param.id]);
 
   return (
     <main>
