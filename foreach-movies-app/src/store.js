@@ -7,6 +7,8 @@ import rootReducer from './reducers';
 const persistConfig = {
   key: 'root',
   storage,
+  whitelist: ['moviesGenres', 'moviesById'],
+  blacklist: ['movies', 'moviesByGenre'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
