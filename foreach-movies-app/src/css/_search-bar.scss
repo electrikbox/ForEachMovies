@@ -6,12 +6,14 @@
     height: 2em;
     gap: 0.3em;
     font-size: 0.5em;
+
     input {
         padding: 0.5em;
         border: none;
         border-radius: 3px;
         width: 15em;
     }
+
     a {
         padding: 0.5em 1em;
         border: none;
@@ -19,6 +21,7 @@
         color: white;
         text-decoration: none;
         cursor: pointer;
+
         &:hover {
             background-color: rgba($secondary, .5);
         }
@@ -31,9 +34,11 @@
     justify-content: center;
     width: 40em;
     gap: 1em;
-    @media screen and (max-width: 768px){
+
+    @media screen and (max-width: 768px) {
         width: 95%;
     }
+
     input {
         padding: 0.5em;
         border: none;
@@ -41,6 +46,7 @@
         font-size: 1.3em;
         box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.1);
     }
+
     button {
         padding: 0.5em 1em;
         border-radius: 2px;
@@ -50,6 +56,7 @@
         text-decoration: none;
         font-size: 1.3em;
         cursor: pointer;
+
         &:hover {
             background-color: darken($secondary, 10%);
         }

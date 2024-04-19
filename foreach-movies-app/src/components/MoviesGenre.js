@@ -14,7 +14,7 @@ const MoviesGenre = () => {
   const [genre, setSelectedGenre] = useState(window.localStorage.getItem('genre'));
   const navigate = useNavigate();
 
-  const { data, refetch } = useQuery(
+  const { data, refetch , isFetching} = useQuery(
     genre,
     () => getMoviesByGenre(genre, currentPage),
     {
@@ -30,7 +30,7 @@ const MoviesGenre = () => {
     navigate(`/moviesgenre?genre=${genre}&page=${currentPage}`);
     refetch({ page: currentPage });
     window.scrollTo(0, 0);
-  }, [currentPage, refetch, searchParams, navigate]);
+  }, [currentPage, refetch, searchParams, navigate, genre]);
 
   useEffect(() => {
     setPage(1);
@@ -45,6 +45,7 @@ const MoviesGenre = () => {
 
   return (
     <main>
+      {isFetching && <p>Fetching...</p>}
       <GenreMenu onGenreSelect={(genre) => setSelectedGenre(genre)} />
       {!searchParams.get('genre') ? <p>Please select a genre</p> :
       <>
