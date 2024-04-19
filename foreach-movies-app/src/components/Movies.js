@@ -23,7 +23,6 @@ const Movies = () => {
 
   useEffect(() => {
     searchParams.set('page', currentPage);
-    console.log('searchParams', searchParams.toString());
     navigate(`/movies?page=${currentPage}`);
     refetch({ page: currentPage });
     window.scrollTo(0, 0);
