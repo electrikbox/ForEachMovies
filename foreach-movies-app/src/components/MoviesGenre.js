@@ -1,4 +1,4 @@
-import GenreMenu from './GenresMenu';
+import GenreMenu from './filters/GenresFilter';
 import MovieCard from './MovieCard';
 import Pagination from './Pagination';
 import { useEffect, useState } from 'react';
@@ -11,7 +11,7 @@ const MoviesGenre = () => {
 
   const [searchParams] = useSearchParams();
   const [currentPage, setPage] = useState(searchParams.get('page'));
-  const genre = searchParams.get('genre');
+  const [genre, setSelectedGenre] = useState(window.localStorage.getItem('genre'));
   const navigate = useNavigate();
 
   const { data, refetch } = useQuery(
@@ -26,10 +26,11 @@ const MoviesGenre = () => {
 
   useEffect(() => {
     searchParams.set('page', currentPage);
+    if (!genre) return;
     navigate(`/moviesgenre?genre=${genre}&page=${currentPage}`);
     refetch({ page: currentPage });
     window.scrollTo(0, 0);
-  }, [currentPage, refetch, searchParams, navigate, genre]);
+  }, [currentPage, refetch, searchParams, navigate]);
 
   useEffect(() => {
     setPage(1);
@@ -44,7 +45,7 @@ const MoviesGenre = () => {
 
   return (
     <main>
-      <GenreMenu />
+      <GenreMenu onGenreSelect={(genre) => setSelectedGenre(genre)} />
       {!searchParams.get('genre') ? <p>Please select a genre</p> :
       <>
         <div className='search-result'>
@@ -56,7 +57,7 @@ const MoviesGenre = () => {
         </div>
         <Pagination
           totalPages={total_pages}
-          currentPage={currentPage}
+          currentPage={movies.page}
           onPageChange={onPageChange} />
       </>}
     </main>
