@@ -1,5 +1,3 @@
-import React from 'react';
-
 /**
  * Truncates the given text if it exceeds the specified maximum length.
  *

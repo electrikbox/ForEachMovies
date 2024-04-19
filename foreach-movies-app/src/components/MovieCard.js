@@ -1,22 +1,12 @@
-import React from 'react';
 import TruncateText from '../utils/TruncateText';
-import { store } from '../store';
 import { useNavigate } from 'react-router-dom';
-import { getMovieById } from '../actions/movieById.action';
 
 
 const MovieItem = ({ movie }) => {
   const navigate = useNavigate();
-
   const storeMovieId = () => {
-    store.dispatch(getMovieById(movie.id))
-      .then(() => {
-        navigate(`/moviedetail/${movie.id}`);
-      })
-      .catch((error) => {
-        console.error('Error fetching movie:', error);
-      });
-  }
+    navigate(`/moviedetail/${movie.id}`);
+  };
 
   return (
     <li key={movie.id} className='movie-card'>
@@ -35,4 +25,4 @@ const MovieItem = ({ movie }) => {
   );
 };
 
-export default React.memo(MovieItem);
+export default MovieItem;

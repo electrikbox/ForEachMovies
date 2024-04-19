@@ -10,7 +10,8 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: rgb(226, 226, 226);
-    }
+    overflow-x: hidden;
+}
 
 main {
     padding: 1vh;
@@ -31,4 +32,10 @@ main {
 h1 {
     width: 100%;
     text-align: center;
+}
+
+.fetching {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
