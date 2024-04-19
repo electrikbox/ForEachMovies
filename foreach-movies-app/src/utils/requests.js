@@ -11,21 +11,24 @@ const api = axios.create({
 });
 
 export function getSearchMovies(query, page) {
-  return api.get('/search/movie?include_adult=false', {
+  return api.get('/search/movie?include_adult=false&language=en-US', {
     params: { query, page, },
   })
   .then((response) => response.data);
 }
 
-export function getMovies(page) {
+export function getMovies(page, with_genres, year) {
   return api.get('/discover/movie?include_adult=false&language=en-US', {
-    params: { page, },
+    params: { page, with_genres, year, },
   })
-  .then((response) => response.data);
+  .then((response) => {
+    console.log(response.data);
+    return response.data;
+  })
 }
 
 export function getMoviesGenres() {
-  return api.get('/genre/movie/list?language=en-US')
+  return api.get('/genre/movie/list?include_adult=false&language=en-US')
   .then((response) => response.data);
 }
 
@@ -35,10 +38,3 @@ export function getMoviesByGenre(with_genres, page) {
   })
   .then((response) => response.data);
 }
-
-// export function getMovieDetail(id) {
-//   return api.get( `/movie/${id}?language=en-US`, {
-//     params: { id, },
-//   })
-//   .then((response) => response.data);
-// }
