@@ -7,25 +7,29 @@ const API_KEY = process.env.REACT_APP_API_KEY;
 
 const MovieDetail = () => {
   const [movie, setMovie] = useState({});
+  const [error, setError] = useState(null);
   const param = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     axios.get(`https://api.themoviedb.org/3/movie/${param.id}`, {
       params: {
-        api_key: API_KEY,      }
+        api_key: API_KEY,
+      }
     })
       .then((response) => {
         setMovie(response.data);
       })
       .catch((error) => {
-        console.error('Error fetching genres:', error);
+        setError(error);
         throw new Error('Failed to fetch detail result.');
       });
-  }, []);
+  }, [param.id]);
 
   return (
     <main>
+      {error && <p>Failed to fetch detail result.</p>}
+      {!error &&
       <div className='movie-detail'>
         <img
           src={movie.poster_path ? `https://image.tmdb.org/t/p/w400${movie.poster_path}` : '/no-poster.jpg'}
@@ -45,7 +49,7 @@ const MovieDetail = () => {
           </ul>
         )}
         <button onClick={() => navigate(-1)}>Go back</button>
-      </div>
+      </div> }
     </main>
   );
 };

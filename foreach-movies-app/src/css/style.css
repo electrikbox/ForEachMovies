@@ -1,4 +1,3 @@
-@charset "UTF-8";
 * {
   margin: 0;
   padding: 0;
@@ -50,6 +49,7 @@ header {
   color: #282c34;
   height: 12vh;
 }
+
 header .logo-searchbar {
   background-color: #282c34;
   display: grid;
@@ -87,7 +87,7 @@ footer {
   margin-top: 20px;
 }
 
-.search-result > ul:first-of-type {
+.search-result>ul:first-of-type {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -102,9 +102,11 @@ footer {
   justify-content: center;
   margin-top: 20px;
 }
+
 .pagination li {
   display: inline-block;
 }
+
 .pagination li a {
   display: flex;
   padding: 5px;
@@ -112,10 +114,12 @@ footer {
   color: #333;
   text-decoration: none;
 }
+
 .pagination li a:hover {
   background-color: #f0f0f0;
   cursor: pointer;
 }
+
 .pagination li.active a {
   background-color: #3b7e91;
   color: #fff;
@@ -133,36 +137,43 @@ footer {
   background-color: white;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
 }
+
 @media screen and (max-width: 768px) {
   .movie-card {
     width: 90%;
   }
 }
+
 .movie-card img {
   width: 25em;
   border-radius: 5px;
 }
+
 @media screen and (max-width: 768px) {
   .movie-card img {
     width: 95%;
   }
 }
+
 .movie-card h3 {
   font-size: 1.2em;
   text-align: center;
   color: #282c34;
 }
+
 .movie-card h5 {
   font-size: 0.9em;
   text-align: center;
   color: rgb(80, 80, 80);
   font-weight: normal;
 }
+
 .movie-card .movie-desc {
   font-size: 1em;
   text-align: start;
   width: 89%;
 }
+
 .movie-card a {
   padding: 0.5em 1em;
   border-radius: 2px;
@@ -171,6 +182,7 @@ footer {
   text-decoration: none;
   cursor: pointer;
 }
+
 .movie-card a:hover {
   background-color: rgba(59, 126, 145, 0.5);
 }
@@ -182,12 +194,14 @@ footer {
   gap: 0.3em;
   font-size: 0.5em;
 }
+
 .search-bar input {
   padding: 0.5em;
   border: none;
   border-radius: 3px;
   width: 15em;
 }
+
 .search-bar a {
   padding: 0.5em 1em;
   border: none;
@@ -196,6 +210,7 @@ footer {
   text-decoration: none;
   cursor: pointer;
 }
+
 .search-bar a:hover {
   background-color: rgba(59, 126, 145, 0.5);
 }
@@ -207,11 +222,13 @@ footer {
   width: 40em;
   gap: 1em;
 }
+
 @media screen and (max-width: 768px) {
   .search-bar-home {
     width: 95%;
   }
 }
+
 .search-bar-home input {
   padding: 0.5em;
   border: none;
@@ -219,6 +236,7 @@ footer {
   font-size: 1.3em;
   box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.1);
 }
+
 .search-bar-home button {
   padding: 0.5em 1em;
   border-radius: 2px;
@@ -229,6 +247,7 @@ footer {
   font-size: 1.3em;
   cursor: pointer;
 }
+
 .search-bar-home button:hover {
   background-color: #2c5f6d;
 }
@@ -256,6 +275,7 @@ nav {
   -webkit-user-select: none;
   user-select: none;
 }
+
 #menuToggle ul {
   padding: 0;
   list-style-type: none;
@@ -292,29 +312,29 @@ nav {
   transform-origin: 0% 100%;
 }
 
-#menuToggle input:checked ~ span {
+#menuToggle input:checked~span {
   opacity: 1;
   transform: rotate(45deg) translate(-3px, -1px);
-  background: #36383F;
+  background: #ffffff;
 }
 
-#menuToggle input:checked ~ span:nth-last-child(3) {
+#menuToggle input:checked~span:nth-last-child(3) {
   opacity: 0;
   transform: rotate(0deg) scale(0.2, 0.2);
 }
 
-#menuToggle input:checked ~ span:nth-last-child(2) {
+#menuToggle input:checked~span:nth-last-child(2) {
   transform: rotate(-45deg) translate(0, -1px);
 }
 
 #menu {
-  position: fixed; /* Position fixe pour le menu */
-  top: 0; /* Ajuster la position verticale selon vos besoins */
-  right: 0; /* Placer le menu à droite */
-  width: 300px; /* Largeur du menu */
-  height: 100%; /* Hauteur du menu (pleine hauteur de la fenêtre) */
-  overflow-y: auto; /* Ajouter une barre de défilement verticale si nécessaire */
-  background-color: #F5F6FA;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100%;
+  overflow-y: auto;
+  background-color: #3b7e91;
   -webkit-font-smoothing: antialiased;
   transform-origin: 100% 0%;
   transform: translate(100%, 0);
@@ -325,19 +345,21 @@ nav {
   padding: 10px 10px;
   transition-delay: 2s;
 }
+
 #menu li a {
   text-decoration: none;
-  color: #1E1E23;
+  color: #e2e2e2;
   opacity: 1;
   font-size: 1em;
   font-weight: 400;
   transition: 200ms;
 }
+
 #menu li a:hover {
   opacity: 0.5;
 }
 
-#menuToggle input:checked ~ ul {
+#menuToggle input:checked~ul {
   transform: none;
 }
 
@@ -366,13 +388,40 @@ select::-ms-expand {
 .select {
   position: relative;
   display: flex;
-  width: 20em;
+  width: 10em;
   height: 2em;
   line-height: 3;
   background: #d3d3d3;
   overflow: hidden;
   border-radius: 0.25em;
   box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.16);
+}
+
+button {
+  padding: 0.5em;
+  border: none;
+  border-radius: 5px;
+  background-color: #3b7e91;
+  color: white;
+  cursor: pointer;
+  font-size: 1em;
+  width: 5em;
+  transition: background-color 0.3s;
+  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.16);
+}
+
+button:hover {
+  background-color: #2c5f6d;
+}
+
+.movies-filters {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 20px 0;
+  padding: 0;
+  list-style: none;
+  gap: 0.3em;
 }
 
 /*# sourceMappingURL=style.css.map */

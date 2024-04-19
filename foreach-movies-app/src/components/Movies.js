@@ -33,11 +33,11 @@ const Movies = () => {
   const movies = data ? data.results : [];
   const total_pages = data ? (data.total_pages > 500 ? 500 : data.total_pages) : 0;
 
-
   useEffect(() => {
     searchParams.set('page', currentPage);
     refetch({ page: currentPage, with_genres: selectedGenre, year: selectedYear });
     window.scrollTo(0, 0);
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -51,6 +51,7 @@ const Movies = () => {
     searchParams.set('page', currentPage);
     navigate(`/movies?${searchParams.toString()}`);
     refetch({ page: currentPage });
+    // eslint-disable-next-line
   }, [currentPage]);
 
   const onClick = () => {
@@ -64,11 +65,12 @@ const Movies = () => {
 
   return (
     <main>
-      <h1>All Movies</h1>
       {isFetching && <p>Fetching...</p>}
-      <GenreMenu onGenreSelect={(genre) => setSelectedGenre(genre)} />
-      <YearsFilter onYearSelect={(year) => setSelectedYear(year)} />
-      <button onClick={onClick}>OK</button>
+      <div className='movies-filters'>
+        <GenreMenu onGenreSelect={(genre) => setSelectedGenre(genre)} />
+        <YearsFilter onYearSelect={(year) => setSelectedYear(year)} />
+        <button onClick={onClick}>OK</button>
+      </div>
       <div className='search-result'>
         <ul>
           {movies.map((movie) => (
