@@ -37,6 +37,14 @@ const SearchResultsPage = () => {
     setQuery(searchParams.get('movie') || '');
   }, [searchParams]);
 
+  useEffect(() => {
+    setPage(JSON.parse(window.localStorage.getItem('page')));
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem('page', currentPage);
+  }, [currentPage]);
+
   const movies = data ? data.results : [];
   const total_pages = data ? data.total_pages : 0;
 
