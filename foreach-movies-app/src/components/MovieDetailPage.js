@@ -22,7 +22,7 @@ const MovieDetail = () => {
         console.error('Error fetching genres:', error);
         throw new Error('Failed to fetch detail result.');
       });
-  }, [movie, param.id]);
+  }, []);
 
   return (
     <main>
