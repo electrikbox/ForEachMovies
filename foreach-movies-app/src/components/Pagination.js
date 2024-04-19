@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate';
 
+
 /**
  * Pagination component.
  *
@@ -10,7 +11,7 @@ import ReactPaginate from 'react-paginate';
  * @param {function} props.onPageChange - The function to be called when a page is changed.
  * @returns {JSX.Element} The pagination component.
  */
-const Pagination = ({ totalPages, currentPage, onPageChange }) => {
+const Pagination = ({ totalPages, currentPage, onPageChange, initialPage }) => {
   return (
     <ReactPaginate
       previousLabel={'<<'}
@@ -24,7 +25,9 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
       containerClassName={'pagination'}
       subContainerClassName={'pages pagination'}
       activeClassName={'active'}
-      forcePage={currentPage - 1}
+      currentPage={currentPage}
+      initialPage={initialPage}
+      renderOnZeroPageCount={null}
     />
   );
 };

@@ -1,3 +1,5 @@
+@import 'variables';
+
 .movie-card {
     display: flex;
     flex-direction: column;
@@ -22,10 +24,28 @@
     h3 {
         font-size: 1.2em;
         text-align: center;
+        color: $primary;
+    }
+    h5 {
+        font-size: 0.9em;
+        text-align: center;
+        color: rgb(80, 80, 80);
+        font-weight: normal;
     }
     .movie-desc {
         font-size: 1em;
         text-align: start;
         width: 89%;
+    }
+    a {
+        padding: 0.5em 1em;
+        border-radius: 2px;
+        background-color: $secondary;
+        color: white;
+        text-decoration: none;
+        cursor: pointer;
+        &:hover {
+            background-color: rgba($secondary, .5);
+        }
     }
 }
