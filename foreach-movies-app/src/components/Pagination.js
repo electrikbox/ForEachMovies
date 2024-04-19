@@ -25,7 +25,7 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
       containerClassName={'pagination'}
       subContainerClassName={'pages pagination'}
       activeClassName={'active'}
-      currentPage={currentPage}
+      // currentPage={currentPage}
     />
   );
 };
