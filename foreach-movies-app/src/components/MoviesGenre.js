@@ -8,6 +8,7 @@ import { getMoviesByGenre } from '../utils/requests';
 
 
 const MoviesGenre = () => {
+
   const [searchParams] = useSearchParams();
   const [currentPage, setPage] = useState(searchParams.get('page'));
   const genre = searchParams.get('genre');
@@ -29,6 +30,10 @@ const MoviesGenre = () => {
     refetch({ page: currentPage });
     window.scrollTo(0, 0);
   }, [currentPage, refetch, searchParams, navigate, genre]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [genre]);
 
   const movies = data ? data.results : [];
   const total_pages = data ? (data.total_pages > 500 ? 500 : data.total_pages) : 0;
