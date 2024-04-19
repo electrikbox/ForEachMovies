@@ -1,6 +1,5 @@
 import Pagination from './Pagination';
 import MovieCard from './MovieCard';
-import SearchBar from './SearchBar';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
@@ -9,12 +8,12 @@ import { getSearchMovies } from '../utils/requests';
 
 const SearchResultsPage = () => {
   const [searchParams] = useSearchParams();
-  const [currentPage, setPage] = useState(searchParams.get('page'));
-  const query = searchParams.get('movie');
+  const [currentPage, setPage] = useState(searchParams.get('page') || 1);
+  const [query, setQuery] = useState(searchParams.get('movie') || '');
   const navigate = useNavigate();
 
   const { data, refetch, isFetching } = useQuery(
-    query,
+    [query, currentPage],
     () => getSearchMovies(query, currentPage),
     {
       staleTime: 60_000,
@@ -24,15 +23,19 @@ const SearchResultsPage = () => {
   );
 
   useEffect(() => {
-    searchParams.set('page', currentPage);
-    if (!window.location.search) {
-      setPage(1)
-      return;
-    }
+    if (!query) return;
     navigate(`/movies/search?movie=${query}&page=${currentPage}`);
     refetch({ page: currentPage });
     window.scrollTo(0, 0);
-  }, [currentPage, refetch, searchParams, navigate, query]);
+  }, [currentPage, query, refetch, navigate]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [query]);
+
+  useEffect(() => {
+    setQuery(searchParams.get('movie') || '');
+  }, [searchParams]);
 
   const movies = data ? data.results : [];
   const total_pages = data ? data.total_pages : 0;
@@ -43,7 +46,7 @@ const SearchResultsPage = () => {
 
   return (
     <div>
-      {!window.location.search ? <SearchBar /> :
+      {!query ? <h1>Oups ! You need to search for a movie</h1> :
         <>
           {isFetching && <p>Fetching...</p>}
           <div className='search-result'>
@@ -55,7 +58,7 @@ const SearchResultsPage = () => {
           </div>
           <Pagination
             totalPages={total_pages}
-            currentPage={currentPage}
+            currentPage={currentPage - 1}
             onPageChange={onPageChange}
           />
         </>}
