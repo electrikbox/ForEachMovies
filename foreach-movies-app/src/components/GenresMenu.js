@@ -32,12 +32,14 @@ const GenreMenu = () => {
   }
 
   return (
-    <select name="genre-menu" id="genre-menu" onChange={updateURL}>
-        <option value="">Make your choice</option>
+    <div className="select">
+      <select className="format" name="genre-menu" id="genre-menu" onChange={updateURL}>
+        <option value="" disabled>Choose a genre...</option>
         {genres.map((genre) => (
           <option key={genre.id} value={genre.id}>{genre.name}</option>
         ))}
-    </select>
+      </select>
+    </div>
   );
 }
 
