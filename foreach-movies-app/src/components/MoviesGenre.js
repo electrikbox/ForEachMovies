@@ -2,68 +2,67 @@ import GenreMenu from './filters/GenresFilter';
 import MovieCard from './MovieCard';
 import Pagination from './Pagination';
 import { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { getMoviesByGenre } from '../utils/requests';
 
-
 const MoviesGenre = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [page, setPage] = useState(searchParams.get('page') || 1);
+  const [genre, setGenre] = useState(searchParams.get('genre') || 80);
+  const [totalPages, setTotalPages] = useState(1);
 
-  const [searchParams] = useSearchParams();
-  const [currentPage, setPage] = useState(searchParams.get('page'));
-  const [genre, setSelectedGenre] = useState(window.localStorage.getItem('genre'));
-  const navigate = useNavigate();
-
-  const { data, refetch , isFetching} = useQuery(
-    genre,
-    () => getMoviesByGenre(genre, currentPage),
+  const { status, data, error, refetch, isFetching } = useQuery(
+    ['genre', genre, page],
+    () => getMoviesByGenre(genre, page),
     {
       staleTime: 60_000,
       cacheTime: 60_000,
-      enabled: true,
+      enabled: false,
     }
   );
 
   useEffect(() => {
-    searchParams.set('page', currentPage);
-    if (!genre) return;
-    navigate(`/moviesgenre?genre=${genre}&page=${currentPage}`);
-    refetch({ page: currentPage });
-    window.scrollTo(0, 0);
-  }, [currentPage, refetch, searchParams, navigate, genre]);
+    if (searchParams.get('genre')) {
+      setSearchParams({ genre, page });
+      refetch();
+    }
+  }, [genre, page, setSearchParams, searchParams, refetch]);
 
   useEffect(() => {
+    if (data) {
+      setTotalPages(Math.min(data.total_pages, 500));
+    }
+  }, [data]);
+
+  const handleGenreSelect = (selectedGenre) => {
+    setGenre(selectedGenre);
     setPage(1);
-  }, [genre]);
-
-  const movies = data ? data.results : [];
-  const total_pages = data ? (data.total_pages > 500 ? 500 : data.total_pages) : 0;
-
-  const onPageChange = ({ selected }) => {
-    setPage(selected + 1);
   };
+
+  if (error) return <p className='error'>An error has occurred</p>;
+  if (status === "loading" && !data) return <p className='loading-fetching'>Fetching...</p>;
+  if (isFetching) return <p className='loading-fetching'>Fetching...</p>;
 
   return (
     <main>
-      {isFetching && <p>Fetching...</p>}
-      <GenreMenu onGenreSelect={(genre) => setSelectedGenre(genre)} />
-      {!searchParams.get('genre') ? <p>Please select a genre</p> :
-      <>
-        <div className='search-result'>
-          <ul>
-            {movies.map((movie) => (
-              <MovieCard key={movie.id} movie={movie} />
-            ))}
-          </ul>
-        </div>
-        <Pagination
-          totalPages={total_pages}
-          currentPage={movies.page}
-          onPageChange={onPageChange} />
-      </>}
+      <GenreMenu onGenreSelect={handleGenreSelect} />
+      <div className='search-result'>
+        <ul>
+          {data && data.results && data.results.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
+          ))}
+        </ul>
+      </div>
+      {data &&
+      <Pagination
+        totalPages={totalPages}
+        currentPage={data.page}
+        onPageChange={({ selected }) => { setPage(selected + 1); }}
+        initialPage={data.page - 1}
+      />}
     </main>
   );
 }
 
 export default MoviesGenre;
-
