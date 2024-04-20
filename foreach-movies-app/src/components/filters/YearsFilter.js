@@ -8,7 +8,7 @@ const YearsFilter = ({ onYearSelect }) => {
 
   const generateYearList = () => {
     const currentYear = new Date().getFullYear();
-    const startYear = 1950;
+    const startYear = 1900;
     const years = [];
     for (let year = startYear; year <= currentYear; year++) {
       years.push(year);
