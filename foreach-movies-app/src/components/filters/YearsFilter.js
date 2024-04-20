@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 
 const YearsFilter = ({ onYearSelect }) => {
   const [searchParams] = useSearchParams();
-  const [selectedYear, setSelectedYear] = useState(searchParams.get('year') || '');
+  const [selectedYear, setSelectedYear] = useState(searchParams.get('year') || 2024);
 
   const generateYearList = () => {
     const currentYear = new Date().getFullYear();
@@ -31,7 +31,6 @@ const YearsFilter = ({ onYearSelect }) => {
   return (
     <div className="select">
       <select className="format" name="year-filter" id="year-filter" onChange={handleYearChange} value={selectedYear}>
-        <option value="" disabled>Choose a year...</option>
         {years.map((year) => (
           <option key={year} value={year}>{year}</option>
         ))}

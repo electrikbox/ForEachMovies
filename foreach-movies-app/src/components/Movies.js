@@ -39,6 +39,11 @@ const Movies = () => {
     }
   }, [data]);
 
+  // useEffect(() => {
+  //   setSearchParams({ year, page });
+  //   refetch();
+  // }, [year, page]);
+
   const handleYearSelected = (selectedYear) => {
     setYear(selectedYear);
     setPage(1);
@@ -64,7 +69,12 @@ const Movies = () => {
         <Pagination
           totalPages={totalPages}
           currentPage={data.page}
-          onPageChange={({ selected }) => { setPage(selected + 1); }}
+          // onPageChange={({ selected }) => { setPage(selected + 1); }}
+          onPageChange={({ selected }) => {
+            const newPage = selected + 1;
+            setPage(newPage);
+            setSearchParams({ year, page: newPage });
+          }}
           initialPage={data.page - 1}
         />}
     </main>
