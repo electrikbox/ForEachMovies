@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 
@@ -23,10 +23,6 @@ const YearsFilter = ({ onYearSelect }) => {
     setSelectedYear(selectedYear);
     onYearSelect(selectedYear);
   };
-
-  useEffect(() => {
-    window.localStorage.setItem('year', selectedYear);
-  }, [selectedYear]);
 
   return (
     <div className="select">

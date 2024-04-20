@@ -1,38 +1,32 @@
-// import { getMoviesGenres } from "../../utils/requests";
-// import { useQuery } from 'react-query';
-// import { useState } from 'react';
-// import { useNavigate, useSearchParams } from "react-router-dom";
+import { useState } from 'react';
+import { useSearchParams } from "react-router-dom";
 
 
-// const OrderFilter = ({onGenreSelect}) => {
-//   const [searchParams] = useSearchParams();
-//   const [genre, setGenre] = useState(searchParams.get('genre') || '');
-//   const navigate = useNavigate();
+const OrderFilter = ({ onOrderSelect }) => {
+  const [searchParams] = useSearchParams();
+  const [selectedOrder, setOrder] = useState(searchParams.get('order') || 'popularity.desc');
 
-//   const { status, data, error } = useQuery(
-//     ['genre'],
-//     () => getMoviesGenres()
-//   );
+  const [orderList] = useState({
+    'Title A-Z': 'title.asc',
+    'Popularity': 'popularity.desc',
+    'Note': 'vote_average.desc',
+  });
 
-//   const handleGenre = (e) => {
-//     onGenreSelect(e.target.value)
-//     setGenre(e.target.value);
-//     navigate(`/moviesgenre?genre=${e.target.value}&page=1`);
-//   }
+  const handleOrderChange = (event) => {
+    const selectedOrder = event.target.value;
+    setOrder(selectedOrder);
+    onOrderSelect(selectedOrder)
+  }
 
-//   if (error) return <p>"An error has occurred"</p>;
-//   if (status === "loading") return <p>Fetching...</p>;
+  return (
+    <div className="select">
+      <select className="format" name="order-menu" id="order-menu" onChange={handleOrderChange} value={selectedOrder}>
+        {Object.entries(orderList).map(([key, value]) => (
+          <option key={key} value={value}>{key}</option>
+        ))}
+      </select>
+    </div>
+  );
+}
 
-//   return (
-//     <div className="select">
-//       <select selected className="format" name="genre-menu" id="genre-menu" onChange={handleGenre} value={genre}>
-//         <option value="" disabled>Choose a genre...</option>
-//         {data.genres.map((genre) => (
-//           <option key={genre.id} value={genre.id}>{genre.name}</option>
-//         ))}
-//       </select>
-//     </div>
-//   );
-// }
-
-// export default OrderFilter;
+export default OrderFilter;

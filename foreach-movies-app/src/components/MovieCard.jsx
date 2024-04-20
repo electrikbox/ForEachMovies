@@ -18,7 +18,7 @@ const MovieItem = ({ movie }) => {
       <TruncateText
         text={movie.overview ? movie.overview : 'No description available...'}
         maxLength={150} />
-      {movie.vote_count > 0 ? <p>{Number(movie.vote_average).toFixed(1)}/10</p> : <p>no note</p>}
+      {movie.vote_count > 0 ? <p>{Math.round(Number(movie.vote_average))}/10</p> : <p>no note</p>}
       <button type="button" onClick={storeMovieId}>Details</button>
     </li>
   );

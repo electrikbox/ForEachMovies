@@ -5,18 +5,19 @@ import { useSearchParams } from 'react-router-dom';
 import MovieCard from './MovieCard';
 import Pagination from './Pagination';
 import YearsFilter from './filters/YearsFilter';
+import OrderFilter from './filters/orderFilter';
 
 const Movies = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(searchParams.get('page') || 1);
   const [year, setYear] = useState(searchParams.get('year') || 2023);
-  const [genre, setGenre] = useState(searchParams.get('genre') || null);
+  const [order, setOrder] = useState(searchParams.get('order') || 'popularity.desc');
   const [totalPages, setTotalPages] = useState(1);
 
   const { status, data, error, refetch, isFetching } = useQuery(
     ['movies'],
-    () => getMovies(year, page),
+    () => getMovies(year, page, order),
     {
       staleTime: 60_000,
       cacheTime: 60_000,
@@ -25,13 +26,12 @@ const Movies = () => {
   );
 
   useEffect(() => {
-    const actualYear = searchParams.get('year');
-
-    if (actualYear) {
-      setSearchParams({ year, page });
-      refetch();
-    }
-  }, [year, page]);
+    searchParams.set('year', year);
+    searchParams.set('order', order);
+    searchParams.set('page', page);
+    setSearchParams(searchParams);
+    refetch();
+  }, [year, order, page]);
 
   useEffect(() => {
     if (data) {
@@ -39,17 +39,15 @@ const Movies = () => {
     }
   }, [data]);
 
-  // useEffect(() => {
-  //   setSearchParams({ year, page });
-  //   refetch();
-  // }, [year, page]);
-
   const handleYearSelected = (selectedYear) => {
     setYear(selectedYear);
     setPage(1);
-    searchParams.append('year', selectedYear);
-    setSearchParams(searchParams);
-  }
+  };
+
+  const handleOrderSelected = (selectedOrder) => {
+    setOrder(selectedOrder);
+    setPage(1);
+  };
 
   if (error) return <p className='error'>An error has occurred</p>;
   if (status === "loading" && !data) return <p className='loading-fetching'>Fetching...</p>;
@@ -58,6 +56,7 @@ const Movies = () => {
   return (
     <main>
       <YearsFilter onYearSelect={handleYearSelected} />
+      <OrderFilter onOrderSelect={handleOrderSelected} />
       <div className='search-result'>
         <ul>
           {data && data.results && data.results.map((movie) => (
@@ -69,12 +68,7 @@ const Movies = () => {
         <Pagination
           totalPages={totalPages}
           currentPage={data.page}
-          // onPageChange={({ selected }) => { setPage(selected + 1); }}
-          onPageChange={({ selected }) => {
-            const newPage = selected + 1;
-            setPage(newPage);
-            setSearchParams({ year, page: newPage });
-          }}
+          onPageChange={({ selected }) => setPage(selected + 1)}
           initialPage={data.page - 1}
         />}
     </main>
