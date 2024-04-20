@@ -17,23 +17,26 @@ export const getSearchMovies = async (query, page) => {
   return response.data;
 }
 
-export const getMovies = async (primary_release_year, page, with_genres) => {
+export const getMovies = async (primary_release_year, page, sort_by) => {
   const response = await api.get('discover/movie?include_adult=false&language=en-US', {
-    params: { primary_release_year, page, with_genres },
+    params: { primary_release_year, page, sort_by },
   })
   return response.data;
 }
-
 
 export const getMoviesGenres = async () => {
   const response = await api.get('genre/movie/list?include_adult=false&language=en-US')
   return response.data;
 }
 
-
 export const getMoviesByGenre = async (with_genres, page) => {
   const response = await api.get('discover/movie?include_adult=false&language=en-US', {
     params: { with_genres, page },
   })
+  return response.data;
+}
+
+export const getMoviesRegions = async () => {
+  const response = await api.get('watch/providers/regions?language=en-US')
   return response.data;
 }
