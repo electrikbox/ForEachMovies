@@ -10,6 +10,7 @@ const MoviesGenre = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(searchParams.get('page') || 1);
   const [genre, setGenre] = useState(searchParams.get('genre') || 80);
+  const [totalPages, setTotalPages] = useState(1);
 
   const { status, data, error, refetch, isFetching } = useQuery(
     ['genre', genre, page],
@@ -27,6 +28,12 @@ const MoviesGenre = () => {
       refetch();
     }
   }, [genre, page, setSearchParams, searchParams, refetch]);
+
+  useEffect(() => {
+    if (data) {
+      setTotalPages(Math.min(data.total_pages, 500));
+    }
+  }, [data]);
 
   const handleGenreSelect = (selectedGenre) => {
     setGenre(selectedGenre);
@@ -49,7 +56,7 @@ const MoviesGenre = () => {
       </div>
       {data &&
       <Pagination
-        totalPages={data.total_pages}
+        totalPages={totalPages}
         currentPage={data.page}
         onPageChange={({ selected }) => { setPage(selected + 1); }}
         initialPage={data.page - 1}
