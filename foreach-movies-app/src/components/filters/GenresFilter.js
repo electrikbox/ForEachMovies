@@ -1,6 +1,6 @@
 import { getMoviesGenres } from "../../utils/requests";
 import { useQuery } from 'react-query';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 
@@ -8,7 +8,7 @@ const GenreMenu = ({onGenreSelect}) => {
   const [genre, setGenre] = useState('');
   const navigate = useNavigate();
 
-  const { status, data, error, refetch, isFetching } = useQuery(
+  const { status, data, error } = useQuery(
     ['genre'],
     () => getMoviesGenres()
   );
