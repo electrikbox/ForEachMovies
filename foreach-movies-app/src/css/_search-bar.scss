@@ -6,12 +6,16 @@
     height: 2em;
     gap: 0.3em;
     font-size: 0.5em;
+    width: 30em;
+    @media screen and (max-width: 768px ){
+        width: 17em;
+    }
 
     input {
         padding: 0.5em;
         border: none;
         border-radius: 3px;
-        width: 15em;
+        width: 100%;
     }
 
     a {
