@@ -1,28 +1,22 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { getMovies } from '../utils/requests';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import GenreMenu from './filters/GenresFilter';
+import { useSearchParams } from 'react-router-dom';
 import MovieCard from './MovieCard';
 import Pagination from './Pagination';
 import YearsFilter from './filters/YearsFilter';
 
 const Movies = () => {
 
-  const [searchParams] = useSearchParams();
-  const [currentPage, setPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [page, setPage] = useState(searchParams.get('page') || 1);
+  const [year, setYear] = useState(searchParams.get('year') || 2023);
+  const [genre, setGenre] = useState(searchParams.get('genre') || null);
+  const [totalPages, setTotalPages] = useState(1);
 
-  const [selectedYear, setSelectedYear] = useState(
-    window.localStorage.getItem('year') || '');
-
-  const [selectedGenre, setSelectedGenre] = useState(
-    window.localStorage.getItem('genre') || '');
-
-  const navigate = useNavigate();
-
-  const { data, refetch, isFetching } = useQuery(
-    'query',
-    () => getMovies(currentPage, selectedGenre, selectedYear),
+  const { status, data, error, refetch, isFetching } = useQuery(
+    ['movies'],
+    () => getMovies(year, page),
     {
       staleTime: 60_000,
       cacheTime: 60_000,
@@ -30,60 +24,49 @@ const Movies = () => {
     }
   );
 
-  const movies = data ? data.results : [];
-  const total_pages = data ? (data.total_pages > 500 ? 500 : data.total_pages) : 0;
+  useEffect(() => {
+    const actualYear = searchParams.get('year');
+
+    if (actualYear) {
+      setSearchParams({ year, page });
+      refetch();
+    }
+  }, [year, page]);
 
   useEffect(() => {
-    searchParams.set('page', currentPage);
-    refetch({ page: currentPage, with_genres: selectedGenre, year: selectedYear });
-    window.scrollTo(0, 0);
-    // eslint-disable-next-line
-  }, []);
+    if (data) {
+      setTotalPages(Math.min(data.total_pages, 500));
+    }
+  }, [data]);
 
-  useEffect(() => {
-    window.localStorage.setItem('year', selectedYear);
-    window.localStorage.setItem('genre', selectedGenre);
-    window.localStorage.setItem('page', currentPage);
-  }, [selectedYear, selectedGenre, currentPage]);
-
-  useEffect(() => {
-    setPage(currentPage);
-    searchParams.set('page', currentPage);
-    navigate(`/movies?${searchParams.toString()}`);
-    refetch({ page: currentPage });
-    // eslint-disable-next-line
-  }, [currentPage]);
-
-  const onClick = () => {
-    window.localStorage.setItem('page', 1);
-    const params = []
-    if (selectedGenre) params.push(`genre=${selectedGenre}`)
-    if (selectedYear) params.push(`year=${selectedYear}`)
-    navigate(`/movies?${params.join('&')}&page=1`)
-    refetch({ page: 1, with_genres: selectedGenre, year: selectedYear });
+  const handleYearSelected = (selectedYear) => {
+    setYear(selectedYear);
+    setPage(1);
+    searchParams.append('year', selectedYear);
+    setSearchParams(searchParams);
   }
+
+  if (error) return <p className='error'>An error has occurred</p>;
+  if (status === "loading" && !data) return <p className='loading-fetching'>Fetching...</p>;
+  if (isFetching) return <p className='loading-fetching'>Fetching...</p>;
 
   return (
     <main>
-      {isFetching && <p>Fetching...</p>}
-      <div className='movies-filters'>
-        <GenreMenu onGenreSelect={(genre) => setSelectedGenre(genre)} />
-        <YearsFilter onYearSelect={(year) => setSelectedYear(year)} />
-        <button onClick={onClick}>OK</button>
-      </div>
+      <YearsFilter onYearSelect={handleYearSelected} />
       <div className='search-result'>
         <ul>
-          {movies.map((movie) => (
+          {data && data.results && data.results.map((movie) => (
             <MovieCard key={movie.id} movie={movie} />
           ))}
         </ul>
       </div>
-      <Pagination
-        totalPages={total_pages}
-        currentPage={currentPage}
-        onPageChange={({ selected }) => { setPage(selected + 1); }}
-        initialPage={currentPage - 1}
-      />
+      {data &&
+        <Pagination
+          totalPages={totalPages}
+          currentPage={data.page}
+          onPageChange={({ selected }) => { setPage(selected + 1); }}
+          initialPage={data.page - 1}
+        />}
     </main>
   );
 };

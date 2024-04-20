@@ -44,7 +44,7 @@ const MovieDetail = () => {
         {movie.genres && (
           <ul>
             {movie.genres.map((genre) => (
-              <li key={genre.id}>{genre.name}</li>
+              <a href={`/moviesgenre?genre=${genre.id}&page=1`}><li key={genre.id}>{genre.name}</li></a>
             ))}
           </ul>
         )}

@@ -11,6 +11,7 @@ import SearchResults from './components/SearchResultsPage';
 import ErrorPage from './components/ErrorPage';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import { SearchProvider } from './components/contexts/SearchContext';
 
 
 const queryClient = new QueryClient();
@@ -19,6 +20,7 @@ const App = () => {
   return (
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
+      <SearchProvider>
         <BrowserRouter>
           <Header />
           <Routes>
@@ -32,6 +34,7 @@ const App = () => {
           <Footer />
         </BrowserRouter>
         <ReactQueryDevtools initialIsOpen={false} />
+        </SearchProvider>
       </QueryClientProvider>
     </React.StrictMode>
   );
