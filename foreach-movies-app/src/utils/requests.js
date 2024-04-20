@@ -10,14 +10,21 @@ const api = axios.create({
   },
 });
 
-export function getSearchMovies(query, page) {
-  return api.get('/search/movie?include_adult=false&language=en-US', {
+// export function getSearchMovies(query, page) {
+//   return api.get('/search/movie?include_adult=false&language=en-US', {
+//     params: { query, page, },
+//   })
+//   .then((response) => response.data)
+//   .catch((error) => {
+//     throw new Error('Failed to fetch movies.');
+//   });
+// }
+
+export const getSearchMovies = async (query, page) => {
+  const response = await api.get('/search/movie?include_adult=false&language=en-US', {
     params: { query, page, },
   })
-  .then((response) => response.data)
-  .catch((error) => {
-    throw new Error('Failed to fetch movies.');
-  });
+  return response.data;
 }
 
 export function getMovies(page, with_genres, year) {
@@ -30,28 +37,10 @@ export function getMovies(page, with_genres, year) {
   });
 }
 
-// export function getMoviesGenres() {
-//   return api.get('/genre/movie/list?include_adult=false&language=en-US')
-//   .then((response) => response.data)
-//   .catch((error) => {
-//     throw new Error('Failed to fetch genres.');
-//   });
-// }
-
 export const getMoviesGenres = async () => {
   const response = await api.get('genre/movie/list?include_adult=false&language=en-US')
   return response.data;
 }
-
-// export function getMoviesByGenre(with_genres, page) {
-//   return api.get('discover/movie?include_adult=false&language=en-US', {
-//     params: { with_genres, page, },
-//   })
-//   .then((response) => response.data)
-//   .catch((error) => {
-//     throw new Error('Failed to fetch movies.');
-//   });
-// }
 
 
 export const getMoviesByGenre = async (with_genres, page) => {
