@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+
 
 const YearsFilter = ({ onYearSelect }) => {
-  const [selectedYear, setSelectedYear] = useState(
-    window.localStorage.getItem('year') || '');
+  const [searchParams] = useSearchParams();
+  const [selectedYear, setSelectedYear] = useState(searchParams.get('year') || '');
 
   const generateYearList = () => {
     const currentYear = new Date().getFullYear();
