@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { getSearchMovies } from '../utils/requests';
@@ -24,15 +24,17 @@ const SearchResultsPage = () => {
 
   useEffect(() => {
     if (searchParams.get('query')) {
+      setQuery(searchParams.get('query'));
+      setPage(searchParams.get('page') || 1);
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (searchParams.get('query')) {
       setSearchParams({ query, page });
       refetch();
     }
-  }, [query, page, setSearchParams, searchParams, refetch]);
-
-  const handleNewSearch = (newQuery) => {
-    setQuery(newQuery);
-    setPage(1);
-  };
+  }, [query, page]);
 
   if (error) return <p className='error'>An error has occurred</p>;
   if (status === 'loading' && !data) return <p className='loading-fetching'>Fetching...</p>;
@@ -53,6 +55,7 @@ const SearchResultsPage = () => {
           currentPage={data.page}
           onPageChange={({ selected }) => {
             setPage(selected + 1);
+            triggerNewSearch(query);
           }}
           initialPage={data.page - 1}
         />
