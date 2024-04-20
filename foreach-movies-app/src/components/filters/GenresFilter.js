@@ -1,64 +1,33 @@
-import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getMoviesGenres } from "../../utils/requests";
 import { useQuery } from 'react-query';
 import { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 
 const GenreMenu = ({onGenreSelect}) => {
-  const [selectedGenre, setSelectedGenre] = useState(
-    window.localStorage.getItem('genre') || '');
-
-  const [searchParams] = useSearchParams();
+  const [genre, setGenre] = useState('');
   const navigate = useNavigate();
 
-  const { data } = useQuery(
-    'genre',
-    () => getMoviesGenres(),
-    {
-      staleTime: 60_000,
-      cacheTime: 60_000,
-      enabled: true,
-    }
+  const { status, data, error, refetch, isFetching } = useQuery(
+    ['genre'],
+    () => getMoviesGenres()
   );
 
-  const genres = data ? data.genres : [];
-
-  const handleGenreChange = (event) => {
-    window.localStorage.setItem('genre', event.target.value);
-    if (window.location.pathname === '/moviesgenre') {
-      const selectedGenre = event.target.value;
-      setSelectedGenre(selectedGenre);
-      onGenreSelect(selectedGenre);
-      updateURL(event);
-    }
-    else {
-      const selectedGenre = event.target.value;
-      setSelectedGenre(selectedGenre);
-      onGenreSelect(selectedGenre);
-    }
-  };
-
-  const updateURL = (e) => {
-    if (window.location.pathname === '/moviesgenre') {
-      const genreId = e.target.value;
-      searchParams.set('genre', genreId);
-      searchParams.set('page', '1');
-      navigate('/moviesgenre?' + searchParams.toString(), { replace: true });
-    }
+  const handleGenre = (e) => {
+    onGenreSelect(e.target.value)
+    setGenre(e.target.value);
+    navigate(`/moviesgenre?genre=${e.target.value}&page=1`);
   }
 
-  useEffect(() => {
-    window.localStorage.setItem('genre', selectedGenre);
-  }, [selectedGenre]);
-
-
+  if (error) return <p>"An error has occurred"</p>;
+  if (status === "loading") return <p>Fetching...</p>;
 
   return (
     <div className="select">
-      <select className="format" name="genre-menu" id="genre-menu" onChange={handleGenreChange} value={selectedGenre}>
+      <select selected className="format" name="genre-menu" id="genre-menu" onChange={handleGenre} value={genre}>
         <option value="" disabled>Choose a genre...</option>
-        {genres.map((genre) => (
-          <option key={genre.id} value={genre.id}>{genre.name}</option>
+        {data.genres.map((genre) => (
+          <option key={genre.id} value={genre.id}>{genre.name} {genre.id}</option>
         ))}
       </select>
     </div>
