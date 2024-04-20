@@ -6,7 +6,7 @@
     height: 2em;
     gap: 0.3em;
     font-size: 0.5em;
-    width: 30em;
+    width: 100%;
     @media screen and (max-width: 768px ){
         width: 17em;
     }
@@ -16,6 +16,7 @@
         border: none;
         border-radius: 3px;
         width: 100%;
+        right: 300px;
     }
 
     a {
