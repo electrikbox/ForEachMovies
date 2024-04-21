@@ -9,7 +9,10 @@ import React from 'react';
 const ErrorPage = () => {
   return (
     <main>
-      <h1>404</h1>
+      <div className='main oups'>
+        <h1>404</h1>
+        <img src='/404.gif' alt='404' />
+      </div>
     </main>
   );
 };
