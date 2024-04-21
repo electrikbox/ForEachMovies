@@ -5,7 +5,7 @@ import Navigation from './Navigation';
 
 /**
  * Header component.
- * 
+ *
  * @returns {JSX.Element} The rendered header component.
  */
 const Header = () => {
@@ -18,6 +18,7 @@ const Header = () => {
         <a href="/"><img src="/logo.svg" className="App-logo" alt="logo" /></a>
         {!isHomePage && (
           <div className='search-bar'>
+            <img className="search-logo" src="./search.svg" alt="search" />
             <SearchBar />
           </div>
         )}

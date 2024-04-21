@@ -10,8 +10,9 @@ const Home = () => {
   return (
     <main>
       <div className='main'>
-        <h1>Home</h1>
+        <h1>Welcome to ForEach Movies !</h1>
         <div className='search-bar-home'>
+          <img className="search-logo" src="./search.svg" alt="search" />
           <SearchBar />
         </div>
       </div>

@@ -27,14 +27,16 @@ const SearchBar = () => {
   };
 
   return (
-    <input
-      type="text"
-      value={query}
-      onChange={(e) => setQuery(e.target.value)}
-      onKeyDown={handleKeyPress}
-      placeholder="Search for movies..."
-      ref={inputRef}
-    />
+    <div className='search-input'>
+      <input
+        type="text"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={handleKeyPress}
+        placeholder="Search for movies..."
+        ref={inputRef}
+      />
+    </div>
   );
 };
 
