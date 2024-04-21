@@ -6,18 +6,27 @@ import MovieCard from './MovieCard';
 import Pagination from './Pagination';
 import YearsFilter from './filters/YearsFilter';
 import OrderFilter from './filters/orderFilter';
+import GenreMenu from './filters/GenresFilter';
 
+/**
+ * Renders a component that displays a list of movies based on selected filters.
+ *
+ * @returns {JSX.Element} The rendered Movies component.
+ */
 const Movies = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const [totalPages, setTotalPages] = useState(1);
   const [page, setPage] = useState(searchParams.get('page') || 1);
+
   const [year, setYear] = useState(searchParams.get('year') || 2023);
   const [order, setOrder] = useState(searchParams.get('order') || 'popularity.desc');
-  const [totalPages, setTotalPages] = useState(1);
+  const [genre, setGenre] = useState(searchParams.get('genre') || '');
 
+  // Fetches all movies and stores the result in the `data` state variable.
   const { status, data, error, refetch, isFetching } = useQuery(
     ['movies'],
-    () => getMovies(year, page, order),
+    () => getMovies(year, page, order, genre),
     {
       staleTime: 60_000,
       cacheTime: 60_000,
@@ -26,12 +35,13 @@ const Movies = () => {
   );
 
   useEffect(() => {
+    searchParams.set('page', page);
     searchParams.set('year', year);
     searchParams.set('order', order);
-    searchParams.set('page', page);
+    searchParams.set('genre', genre);
     setSearchParams(searchParams);
     refetch();
-  }, [year, order, page]);
+  }, [page, year, order, genre]);
 
   useEffect(() => {
     if (data) {
@@ -39,31 +49,50 @@ const Movies = () => {
     }
   }, [data]);
 
+  // Handles the selection of a genre.
+  const handleGenreSelect = (selectedGenre) => {
+    setGenre(selectedGenre);
+    setPage(1);
+  };
+
+  // Handles the selection of a year.
   const handleYearSelected = (selectedYear) => {
     setYear(selectedYear);
     setPage(1);
   };
 
+  // Handles the selection of an order.
   const handleOrderSelected = (selectedOrder) => {
     setOrder(selectedOrder);
     setPage(1);
   };
 
   if (error) return <p className='error'>An error has occurred</p>;
-  if (status === "loading" && !data) return <p className='loading-fetching'>Fetching...</p>;
-  if (isFetching) return <p className='loading-fetching'>Fetching...</p>;
 
   return (
     <main>
-      <YearsFilter onYearSelect={handleYearSelected} />
-      <OrderFilter onOrderSelect={handleOrderSelected} />
+      <div className='filters'>
+        <div className='filter'>
+          <h3>Genre</h3>
+          <GenreMenu onGenreSelect={handleGenreSelect} />
+        </div>
+        <div className='filter'>
+          <h3>Year</h3>
+          <YearsFilter onYearSelect={handleYearSelected} />
+        </div>
+        <div className='filter'>
+          <h3>Order By</h3>
+          <OrderFilter onOrderSelect={handleOrderSelected} />
+        </div>
+      </div>
+      {status === 'loading' || isFetching ? <div className="loader"></div> :
       <div className='search-result'>
         <ul>
           {data && data.results && data.results.map((movie) => (
             <MovieCard key={movie.id} movie={movie} />
           ))}
         </ul>
-      </div>
+      </div>}
       {data &&
         <Pagination
           totalPages={totalPages}
