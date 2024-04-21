@@ -11,32 +11,39 @@
     border-radius: 5px;
     background-color: white;
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
-    @media screen and (max-width: 768px){
+
+    @media screen and (max-width: 768px) {
         width: 90%;
     }
+
     img {
         width: 25em;
         border-radius: 5px;
-        @media screen and (max-width: 768px){
+
+        @media screen and (max-width: 768px) {
             width: 95%;
         }
     }
+
     h3 {
         font-size: 1.2em;
         text-align: center;
         color: $primary;
     }
+
     h5 {
         font-size: 0.9em;
         text-align: center;
         color: rgb(80, 80, 80);
         font-weight: normal;
     }
+
     .movie-desc {
         font-size: 1em;
         text-align: start;
         width: 89%;
     }
+
     a {
         padding: 0.5em 1em;
         border-radius: 2px;
@@ -44,6 +51,7 @@
         color: white;
         text-decoration: none;
         cursor: pointer;
+
         &:hover {
             background-color: rgba($secondary, .5);
         }

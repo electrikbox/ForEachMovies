@@ -5,11 +5,11 @@ import ReactPaginate from 'react-paginate';
 /**
  * Pagination component.
  *
- * @component
  * @param {number} props.totalPages - The total number of pages.
- * @param {number} props.currentPage - The currently active page.
- * @param {function} props.onPageChange - The function to be called when a page is changed.
- * @returns {JSX.Element} The pagination component.
+ * @param {number} props.currentPage - The current active page.
+ * @param {function} props.onPageChange - The function to handle page change.
+ * @param {number} props.initialPage - The initial active page.
+ * @returns {JSX.Element} The Pagination component.
  */
 const Pagination = ({ totalPages, currentPage, onPageChange, initialPage }) => {
   return (
