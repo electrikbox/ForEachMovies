@@ -1,17 +1,15 @@
 @import 'variables';
 
 nav {
-  height: 75px;
+  width: 2em;
   position: relative;
 }
 
 #menuToggle {
   display: flex;
   flex-direction: column;
-  position: absolute;
   top: 33px;
   right: 20px;
-  z-index: 1;
   -webkit-user-select: none;
   user-select: none;
 
@@ -24,7 +22,7 @@ nav {
 #menuToggle input {
   display: flex;
   width: 40px;
-  height: 32px;
+  height: 30px;
   position: absolute;
   cursor: pointer;
   opacity: 0;

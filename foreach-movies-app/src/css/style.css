@@ -4,17 +4,23 @@
   box-sizing: border-box;
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(226, 226, 226);
+  background-color: rgb(210, 210, 210);
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 main {
-  padding: 1vh;
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -34,6 +40,23 @@ h1 {
   text-align: center;
 }
 
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  width: 80em;
+  background-color: rgb(225, 225, 225);
+  height: 100%;
+  margin: auto;
+  padding-top: 2em;
+}
+@media screen and (max-width: 80em) {
+  .main {
+    width: 100%;
+  }
+}
+
 header {
   display: flex;
   flex-direction: column;
@@ -41,12 +64,12 @@ header {
   justify-content: space-between;
   font-size: 2em;
   color: #282c34;
-  height: 10vh;
+  height: 8vh;
+  z-index: 1000;
 }
 header .logo-searchbar {
   background-color: #282c34;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
@@ -56,7 +79,7 @@ header .logo-searchbar {
 
 .App-logo {
   height: 7vh;
-  pointer-events: none;
+  pointer-events: stroke;
 }
 
 footer {
@@ -69,7 +92,7 @@ footer {
   text-align: center;
   padding: 10px;
   width: 100%;
-  height: 4vh;
+  height: 5vh;
   margin-top: auto;
 }
 
@@ -94,6 +117,7 @@ footer {
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  padding-bottom: 1.5em;
 }
 .pagination li {
   display: inline-block;
@@ -172,9 +196,8 @@ footer {
   display: flex;
   justify-content: center;
   height: 2em;
-  gap: 0.3em;
   font-size: 0.5em;
-  width: 100%;
+  width: 50%;
 }
 @media screen and (max-width: 768px) {
   .search-bar {
@@ -185,8 +208,12 @@ footer {
   padding: 0.5em;
   border: none;
   border-radius: 3px;
-  width: 100%;
-  right: 300px;
+  width: 93%;
+}
+@media screen and (max-width: 768px) {
+  .search-bar input {
+    width: 75%;
+  }
 }
 .search-bar a {
   padding: 0.5em 1em;
@@ -280,17 +307,15 @@ footer {
 }
 
 nav {
-  height: 75px;
+  width: 2em;
   position: relative;
 }
 
 #menuToggle {
   display: flex;
   flex-direction: column;
-  position: absolute;
   top: 33px;
   right: 20px;
-  z-index: 1;
   -webkit-user-select: none;
   user-select: none;
 }
@@ -302,7 +327,7 @@ nav {
 #menuToggle input {
   display: flex;
   width: 40px;
-  height: 32px;
+  height: 30px;
   position: absolute;
   cursor: pointer;
   opacity: 0;
@@ -414,7 +439,7 @@ select::-ms-expand {
 }
 @media screen and (max-width: 768px) {
   .select {
-    width: 100%;
+    width: 90%;
   }
 }
 
@@ -477,20 +502,15 @@ button:hover {
     transform: rotate(1turn);
   }
 }
-.detail-title {
-  font-size: 2em;
-  font-weight: bold;
-  text-align: center;
-}
-
 .movie-detail {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   margin: 0;
   width: 90%;
   gap: 2em;
+  padding-bottom: 1.5em;
 }
 @media screen and (max-width: 768px) {
   .movie-detail {
@@ -512,12 +532,31 @@ button:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
   height: 100%;
   gap: 1em;
   text-align: center;
   position: relative;
+}
+.movie-detail .detail-content .detail-top {
+  width: 100%;
+}
+.movie-detail .detail-content .detail-top p {
+  text-align: justify;
+}
+.movie-detail .detail-content .detail-title {
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 1em;
+}
+.movie-detail .detail-content .detail-infos {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1em;
+  margin-bottom: 1em;
 }
 .movie-detail .detail-content .original-title {
   font-size: 1.2em;
@@ -525,6 +564,21 @@ button:hover {
 .movie-detail .detail-content .overview {
   font-size: 1.2em;
   text-align: justify;
+}
+.movie-detail .detail-content h3 {
+  text-align: start;
+}
+.movie-detail .detail-content .detail-bottom {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  width: 100%;
+  margin-top: 2em;
+}
+.movie-detail .detail-content .detail-bottom .back {
+  width: 7em;
 }
 .movie-detail .detail-content .genres {
   font-size: 1.2em;
@@ -545,11 +599,28 @@ button:hover {
   height: 2em;
   line-height: 1em;
   border-radius: 3px;
-  flex-grow: 1;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.16);
 }
-.movie-detail .detail-content .back {
-  width: 100%;
+.movie-detail .detail-content .genres a:hover {
+  background-color: rgba(59, 126, 145, 0.1);
+}
+
+.oups {
+  display: flex;
+}
+.oups h1 {
+  font-size: 6em;
+  color: #3b7e91;
+  margin: 0.3em;
+}
+.oups img {
+  border-radius: 5px;
+  width: 50em;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
+}
+@media screen and (max-width: 50em) {
+  .oups img {
+    width: 90%;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

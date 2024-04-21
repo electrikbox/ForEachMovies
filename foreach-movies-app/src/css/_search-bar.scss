@@ -4,20 +4,24 @@
     display: flex;
     justify-content: center;
     height: 2em;
-    gap: 0.3em;
+    // gap: 0.3em;
     font-size: 0.5em;
-    width: 100%;
+    width: 50%;
 
     @media screen and (max-width: 768px) {
         width: 17em;
+        // justify-content: start;
     }
 
     input {
         padding: 0.5em;
         border: none;
         border-radius: 3px;
-        width: 100%;
-        right: 300px;
+        width: 93%;
+
+        @media screen and (max-width: 768px) {
+            width: 75%;
+        }
     }
 
     a {
