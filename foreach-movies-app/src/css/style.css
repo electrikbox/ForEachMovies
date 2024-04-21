@@ -593,7 +593,7 @@ button:hover {
   flex-direction: row;
   align-items: center;
   gap: 1em;
-  margin-top: 1em;
+  margin-top: 0.6em;
 }
 .movie-detail .detail-content .detail-infos a {
   text-decoration: none;

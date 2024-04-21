@@ -58,7 +58,7 @@ const MovieDetail = () => {
                   <h3>Note:</h3>
                   {data.vote_count > 0 ? <p>{Math.round(Number(data.vote_average))}/10</p> : <p>no note</p>}
                 </div>
-                <h3 style={{ marginTop: "1em" }}>Overview:</h3>
+                <h3 style={{ marginTop: "0.6em" }}>Overview:</h3>
                 <p className='overview'>{data.overview || "No overview"}</p>
                 {data.homepage && (
                   <div className='detail-infos'>
