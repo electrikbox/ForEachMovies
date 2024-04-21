@@ -20,7 +20,7 @@ git clone git@github.com:electrikbox/ForEachMovies.git
 ```
 Change directory
 ```
-cd foreach-movies-app
+cd ForEachMovies/foreach-movies-app
 ```
 ### with docker
 
