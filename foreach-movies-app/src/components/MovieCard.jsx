@@ -2,6 +2,12 @@ import TruncateText from '../utils/TruncateText';
 import { useNavigate } from 'react-router-dom';
 
 
+/**
+ * Movie card component.
+ *
+ * @param {Object} props.movie - The movie object.
+ * @returns {JSX.Element} The movie card component.
+ */
 const MovieItem = ({ movie }) => {
   const navigate = useNavigate();
   const storeMovieId = () => {

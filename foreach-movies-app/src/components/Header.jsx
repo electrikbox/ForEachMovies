@@ -3,6 +3,11 @@ import SearchBar from './SearchBar';
 import Navigation from './Navigation';
 
 
+/**
+ * Header component.
+ * 
+ * @returns {JSX.Element} The rendered header component.
+ */
 const Header = () => {
   const location = useLocation();
   const isHomePage = location.pathname === '/';

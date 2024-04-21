@@ -1,6 +1,11 @@
 import SearchBar from './SearchBar';
 
 
+/**
+ * Home component.
+ *
+ * @returns {JSX.Element} The rendered Home component.
+ */
 const Home = () => {
   return (
     <main>
