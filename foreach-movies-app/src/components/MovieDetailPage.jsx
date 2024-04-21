@@ -33,29 +33,43 @@ const MovieDetail = () => {
   return (
     <main>
       {status === 'loading' || isFetching ? <div className="loader"></div> :
-        <>
-          <h2 className='detail-title'>{data.title}</h2>
-          <p className='original-title'><strong>Original title :</strong> {data.original_title}</p>
+        <div className='main'>
           <div className='movie-detail'>
             <img className='detail-pic'
               src={data.poster_path ? `https://image.tmdb.org/t/p/w400${data.poster_path}` : '/no-poster.jpg'}
               alt={data.title}
             />
             <div className='detail-content'>
-              <p className='overview'>{data.overview}</p>
-              <p>{Math.round(Number(data.vote_average))}/10</p>
-              <p>{data.release_date}</p>
-              {data.genres && (
-                <ul className='genres'>
-                  {data.genres.map((genre) => (
-                    <a href={`/moviesgenre?genre=${genre.id}&page=1`}><li key={genre.id}>{genre.name}</li></a>
-                  ))}
-                </ul>
-              )}
-              <button className="back" onClick={() => navigate(-1)}>Go back</button>
+              <div className='detail-top'>
+                <h2 className='detail-title'>{data.title}</h2>
+                <div className='detail-infos'>
+                  <h3>Original title :</h3>
+                  <p>{data.original_title}</p>
+                </div>
+                <div className='detail-infos'>
+                  <h3>Release date :</h3>
+                  <p>{data.release_date}</p>
+                </div>
+                <div className='detail-infos'>
+                  <h3>Note:</h3>
+                  {data.vote_count > 0 ? <p>{Math.round(Number(data.vote_average))}/10</p> : <p>no note</p>}
+                </div>
+                <h3>Overview:</h3>
+                <p className='overview'>{data.overview || "No overview"}</p>
+              </div>
+              <div className='detail-bottom'>
+                {data.genres && (
+                  <ul className='genres'>
+                    {data.genres.map((genre) => (
+                      <a href={`/moviesgenre?genre=${genre.id}&page=1`}><li key={genre.id}>{genre.name}</li></a>
+                    ))}
+                  </ul>
+                )}
+                <button className="back" onClick={() => navigate(-1)}>Go back</button>
+              </div>
             </div>
           </div>
-        </>}
+        </div>}
     </main>
   );
 };
