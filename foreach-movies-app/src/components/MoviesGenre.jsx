@@ -53,21 +53,23 @@ const MoviesGenre = () => {
 
   return (
     <main>
-      <GenreMenu onGenreSelect={handleGenreSelect} />
-      <div className='search-result'>
-        <ul>
-          {data && data.results && data.results.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))}
-        </ul>
+      <div className='main'>
+        <GenreMenu onGenreSelect={handleGenreSelect} />
+        <div className='search-result'>
+          <ul>
+            {data && data.results && data.results.map((movie) => (
+              <MovieCard key={movie.id} movie={movie} />
+            ))}
+          </ul>
+        </div>
+        {data &&
+          <Pagination
+            totalPages={totalPages}
+            currentPage={data.page}
+            onPageChange={({ selected }) => { setPage(selected + 1); }}
+            initialPage={data.page - 1}
+          />}
       </div>
-      {data &&
-      <Pagination
-        totalPages={totalPages}
-        currentPage={data.page}
-        onPageChange={({ selected }) => { setPage(selected + 1); }}
-        initialPage={data.page - 1}
-      />}
     </main>
   );
 }

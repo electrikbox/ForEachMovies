@@ -48,24 +48,26 @@ const SearchResultsPage = () => {
 
   return (
     <main>
-      <div className='search-result'>
-        <ul>
-          {data && data.results && data.results.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))}
-        </ul>
+      <div className='main'>
+        <div className='search-result'>
+          <ul>
+            {data && data.results && data.results.map((movie) => (
+              <MovieCard key={movie.id} movie={movie} />
+            ))}
+          </ul>
+        </div>
+        {data && (
+          <Pagination
+            totalPages={data.total_pages}
+            currentPage={data.page}
+            onPageChange={({ selected }) => {
+              setPage(selected + 1);
+              triggerNewSearch(query);
+            }}
+            initialPage={data.page - 1}
+          />
+        )}
       </div>
-      {data && (
-        <Pagination
-          totalPages={data.total_pages}
-          currentPage={data.page}
-          onPageChange={({ selected }) => {
-            setPage(selected + 1);
-            triggerNewSearch(query);
-          }}
-          initialPage={data.page - 1}
-        />
-      )}
     </main>
   );
 };

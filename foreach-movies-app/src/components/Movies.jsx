@@ -71,35 +71,37 @@ const Movies = () => {
 
   return (
     <main>
-      <div className='filters'>
-        <div className='filter'>
-          <h3>Genre</h3>
-          <GenreMenu onGenreSelect={handleGenreSelect} />
+      <div className='main'>
+        <div className='filters'>
+          <div className='filter'>
+            <h3>Genre</h3>
+            <GenreMenu onGenreSelect={handleGenreSelect} />
+          </div>
+          <div className='filter'>
+            <h3>Year</h3>
+            <YearsFilter onYearSelect={handleYearSelected} />
+          </div>
+          <div className='filter'>
+            <h3>Order By</h3>
+            <OrderFilter onOrderSelect={handleOrderSelected} />
+          </div>
         </div>
-        <div className='filter'>
-          <h3>Year</h3>
-          <YearsFilter onYearSelect={handleYearSelected} />
-        </div>
-        <div className='filter'>
-          <h3>Order By</h3>
-          <OrderFilter onOrderSelect={handleOrderSelected} />
-        </div>
+        {status === 'loading' || isFetching ? <div className="loader"></div> :
+          <div className='search-result'>
+            <ul>
+              {data && data.results && data.results.map((movie) => (
+                <MovieCard key={movie.id} movie={movie} />
+              ))}
+            </ul>
+          </div>}
+        {data &&
+          <Pagination
+            totalPages={totalPages}
+            currentPage={data.page}
+            onPageChange={({ selected }) => setPage(selected + 1)}
+            initialPage={data.page - 1}
+          />}
       </div>
-      {status === 'loading' || isFetching ? <div className="loader"></div> :
-      <div className='search-result'>
-        <ul>
-          {data && data.results && data.results.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))}
-        </ul>
-      </div>}
-      {data &&
-        <Pagination
-          totalPages={totalPages}
-          currentPage={data.page}
-          onPageChange={({ selected }) => setPage(selected + 1)}
-          initialPage={data.page - 1}
-        />}
     </main>
   );
 };

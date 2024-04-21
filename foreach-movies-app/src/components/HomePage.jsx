@@ -9,9 +9,11 @@ import SearchBar from './SearchBar';
 const Home = () => {
   return (
     <main>
-      <h1>Home</h1>
-      <div className='search-bar-home'>
-        <SearchBar />
+      <div className='main'>
+        <h1>Home</h1>
+        <div className='search-bar-home'>
+          <SearchBar />
+        </div>
       </div>
     </main>
   );
