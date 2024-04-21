@@ -13,36 +13,29 @@ Here is the deployed version of the project:  [**foreachmovies.electrikbox.fr**]
 
 
 ## ⚙️ Install
+### Get repo
 
-Start by cloning this repo:
+- Start by cloning this repo:
 ```
 git clone git@github.com:electrikbox/ForEachMovies.git
 ```
-Change directory
+- Change directory
 ```
-cd ForEachMovies/foreach-movies-app
+cd ForEachMovies/foreach-movies-app/
 ```
-- install react
-```
-npm install
-```
-- install dependencies
-```
-npm install sass react-router-dom react-paginate axios
-```
-Create a .env file at the root dir with your Movie DB api key
+## 🖱️ Usage
+From the "foreach-movies-app" directory
+
+- Create a .env file at the root dir with your Movie DB api key
 ```
 API_KEY=xxxxxxxxxxxxxxxxxxxx
 ```
-
-## 🖱️ Usage
-From the "foreach-movies-app" directory
 
 - Create the docker image for the app
 ```
 docker build -t foreachmovies .
 ```
-- run the docker container
+- Run the docker container
 ```
 docker run -p 3000:3000 foreachmovies
 ```
@@ -54,64 +47,65 @@ Here's the available urls:
 ```
 http://foreachmovies.electrikbox.fr/
 ```
-Page contenant:
-- le header du site
-- une section principale avec une barre de recherche
-- un footer (identique pour chaque page)
+Page containing:
 
-Une fois la recharche faite vous arriverez sur la prochain url:
+- the site header
+- a main section with a search bar
+- a footer (identical for each page)
 
-### Page de résultat de la recherche
+Once the search is done, you will arrive at the next URL:
+
+### Search Result Page
 ```
 http://foreachmovies.electrikbox.fr/movies/search?query=<film recherché>&page=1
 ```
-Page qui affiche les résultats de la recherche sous forme de liste de cards avec:
-- le titre du film
-- l'affiche du film
-- le début de la description
-- la note
-- un boutton pour aller sur la page de details
+Page displaying the search results as a list of cards with:
 
-si l'utilisateur va directement sur `http://foreachmovies.electrikbox.fr/movies/search` il aura un message lui demandant de faire une recherche (avec la barre de recherche dans le header)
+- the movie title
+- the movie poster
+- the beginning of the description
+- the rating
+- a button to go to the details page
 
-### Page de detail d'un film
+If the user goes directly to `http://foreachmovies.electrikbox.fr/movies/search`, they will see a message asking them to perform a search (with the search bar in the header).
+
+
+### Movie Detail Page
 ```
 http://foreachmovies.electrikbox.fr/movies/<movie_id>
 ```
-Page contenant plus d'infos sur le film:
-- titre anglais
-- titre original
-- pays de production
-- note
-- description complète
-- liens du film
-- liste de genre du film
-- bouton de retour
+Page containing more information about the movie:
 
-En cliquant sur un genre, l'utilisateur sera redirigé vers la prochain url:
+- English title
+- original title
+- production countries
+- rating
+- full description
+- movie links
+- list of movie genres
+- back button
 
-### Page films par genre
+By clicking on a genre, the user will be redirected to the next URL:
+
+### Movies by Genre Page
 ```
 http://foreachmovies.electrikbox.fr/moviesgenre
 ```
-Page contenant un menu déroulant avec la liste des genres fournis par l'API, une fois le genre choisit
+Page containing a dropdown menu with the list of genres provided by the API, once the genre is chosen
 
-### Page films
+### Movies Page
 ```
 http://foreachmovies.electrikbox.fr/movies
 ```
-Page contenant 3 filtres en menu déroulant:
+Page containing 3 dropdown filters:
+
 - genre
-- année
-- ordre
+- year
+- order
 
-A l'arrivé sur la page une list de films apparait avec des filtres déjà appliqué (ordre par popularité et année 2024).
+Upon arriving on the page, a list of movies appears with filters already applied (order by popularity and year 2024).
 <br>
-la page recharge les résultat au changement de filtre.
-
-### Other features
-
-Si l'utilisateur va sur une page du site qui n'eiste pas il sera redirigé vers une page 404.
+the page reloads the results when the filter changes.
 
 ## 🧑‍💻 Authors
 **Olive t'Servrancx** on [Linkedin](https://www.linkedin.com/in/olivier-tservrancx/) and on [Github](https://github.com/electrikbox)
