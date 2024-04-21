@@ -1,5 +1,27 @@
-# ForEach Movies
-## Install
+# 🎬ForEach Movies
+<img src="https://i.imgur.com/AlPZuIu.png" alt="fm-logo" width="100%" />
+
+## 👋 INTRO
+Foreach Movies is an entrance test for ForEach Academy.
+<br>
+The project is a website made with [ReactJS](https://fr.legacy.reactjs.org/) that displays lists of movies provide from [The Movie DB API](https://developer.themoviedb.org/reference/intro/getting-started), based on genre, years, etc...
+<br>
+More information can be found in the rest of this readme.
+
+## 🔗 LINK
+Here is the deployed version of the project:  [**foreachmovies.electrikbox.fr**](http://foreachmovies.electrikbox.fr/)
+
+
+## ⚙️ Install
+
+Start by cloning this repo:
+```
+git clone git@github.com:electrikbox/ForEachMovies.git
+```
+Change directory
+```
+cd foreach-movies-app
+```
 ### with docker
 
 - First, navigate to the Dockerfile location dir
@@ -17,13 +39,12 @@ npm install
 API_KEY=xxxxxxxxxxxxxxxxxxxx
 ```
 
-## Dependencies
-All dependencies are managed by the Dockerfile, but if you want to work without docker you can install it with this command:
+- install dependencies
 ```
 npm install sass react-router-dom react-paginate axios
 ```
 
-## Usage
+## 🖱️ Usage
 ### With docker
 ```
 docker run -p 3000:3000 foreachmovies
@@ -38,38 +59,76 @@ npm start
 sass --watch src/css/main.scss src/css/style.css
 ```
 
-In the project directory, you can run:
+## 📑 Features
+Here's the available urls:
 
-### `npm start`
+### Homepage
+```
+http://foreachmovies.electrikbox.fr/
+```
+Page contenant:
+- le header du site
+- une section principale avec une barre de recherche
+- un footer (identique pour chaque page)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Une fois la recharche faite vous arriverez sur la prochain url:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Page de résultat de la recherche
+```
+http://foreachmovies.electrikbox.fr/movies/search?query=<film recherché>&page=1
+```
+Page qui affiche les résultats de la recherche sous forme de liste de cards avec:
+- le titre du film
+- l'affiche du film
+- le début de la description
+- la note
+- un boutton pour aller sur la page de details
 
-### `npm test`
+si l'utilisateur va directement sur `http://foreachmovies.electrikbox.fr/movies/search` il aura un message lui demandant de faire une recherche (avec la barre de recherche dans le header)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Page de detail d'un film
+```
+http://foreachmovies.electrikbox.fr/movies/<movie_id>
+```
+Page contenant plus d'infos sur le film:
+- titre anglais
+- titre original
+- pays de production
+- note
+- description complète
+- liens du film
+- liste de genre du film
+- bouton de retour
 
-### `npm run build`
+En cliquant sur un genre, l'utilisateur sera redirigé vers la prochain url:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Page films par genre
+```
+http://foreachmovies.electrikbox.fr/moviesgenre
+```
+Page contenant un menu déroulant avec la liste des genres fournis par l'API, une fois le genre choisit
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Page films
+```
+http://foreachmovies.electrikbox.fr/movies
+```
+Page contenant 3 filtres en menu déroulant:
+- genre
+- année
+- ordre
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+A l'arrivé sur la page une list de films apparait avec des filtres déjà appliqué (ordre par popularité et année 2024).
+<br>
+la page recharge les résultat au changement de filtre.
 
-## Features
-... content to add ...
+### Other features
 
-## Authors
+Si l'utilisateur va sur une page du site qui n'eiste pas il sera redirigé vers une page 404.
+
+## 🧑‍💻 Authors
 **Olive t'Servrancx** on [Linkedin](https://www.linkedin.com/in/olivier-tservrancx/) and on [Github](https://github.com/electrikbox)
 
-## License
+## 🪪 License
 Copyright 2024 Olivier T'Servrancx
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
