@@ -20,7 +20,7 @@ API_KEY=xxxxxxxxxxxxxxxxxxxx
 ## Dependencies
 All dependencies are managed by the Dockerfile, but if you want to work without docker you can install it with this command:
 ```
-npm install sass react-router-dom reat-dotenv react-paginate
+npm install sass react-router-dom react-paginate axios
 ```
 
 ## Usage
