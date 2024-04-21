@@ -1,0 +1,79 @@
+@import 'variables';
+
+.detail-title {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+}
+.movie-detail {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    width: 90%;
+    gap: 2em;
+
+    @media screen and (max-width: 768px) {
+        width: 95%;
+        flex-direction: column;
+    }
+
+    .detail-pic {
+        width: 30em;
+        border-radius: 5px;
+        box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.4);
+
+        @media screen and (max-width: 768px) {
+            width: 100%;
+        }
+    }
+
+    .detail-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        gap: 1em;
+        text-align: center;
+        position: relative;
+
+        .original-title {
+            font-size: 1.2em;
+        }
+
+        .overview {
+            font-size: 1.2em;
+            text-align: justify;
+        }
+
+        .genres {
+            font-size: 1.2em;
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            gap: 0.5em;
+            li {
+                display: inline;
+                color: $secondary;
+                list-style: none;
+            }
+            a {
+                text-decoration: none;
+                background-color: rgb(240, 240, 240);
+                padding: 0.5em;
+                height: 2em;
+                line-height: 1em;
+                border-radius: 3px;
+                flex-grow: 1;
+                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.16);
+            }
+        }
+
+        .back {
+            width: 100%;
+        }
+    }
+}
