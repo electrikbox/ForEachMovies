@@ -22,41 +22,29 @@ Change directory
 ```
 cd ForEachMovies/foreach-movies-app
 ```
-### with docker
-
-- First, navigate to the Dockerfile location dir
-- Create the docker image for the app
-```
-docker build -t foreachmovies .
-```
-### Manually
 - install react
 ```
 npm install
 ```
-- create a .env file at the root dir with your api key
-```
-API_KEY=xxxxxxxxxxxxxxxxxxxx
-```
-
 - install dependencies
 ```
 npm install sass react-router-dom react-paginate axios
 ```
+Create a .env file at the root dir with your Movie DB api key
+```
+API_KEY=xxxxxxxxxxxxxxxxxxxx
+```
 
 ## 🖱️ Usage
-### With docker
+From the "foreach-movies-app" directory
+
+- Create the docker image for the app
+```
+docker build -t foreachmovies .
+```
+- run the docker container
 ```
 docker run -p 3000:3000 foreachmovies
-```
-### Manually
-- In a terminal from 'foreach-movies-app' dir
-```
-npm start
-```
-- If you want to see style changes withoutneed to relaunch the app, do this command in another terminal ffrom 'foreach-movies-app' dir
-```
-sass --watch src/css/main.scss src/css/style.css
 ```
 
 ## 📑 Features
