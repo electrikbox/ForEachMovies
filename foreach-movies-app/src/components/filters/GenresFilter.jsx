@@ -2,6 +2,7 @@ import { getMoviesGenres } from "../../utils/requests";
 import { useQuery } from 'react-query';
 import { useState } from 'react';
 import { useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
 /**
@@ -13,11 +14,17 @@ import { useSearchParams } from "react-router-dom";
 const GenreMenu = ({onGenreSelect}) => {
   const [searchParams] = useSearchParams();
   const [selectedYear, setGenre] = useState(searchParams.get('genre') || '');
+  const location = useLocation();
+  const navigate = useNavigate();
 
   // Fetches the movie genres and stores the result in the `data` state variable.
   const { status, data, error } = useQuery(
     ['genre'],
-    () => getMoviesGenres()
+    () => getMoviesGenres(),
+    {
+      staleTime: 600_000,
+      cacheTime: 600_000,
+    }
   );
 
   // Handles the change event of the genre select input.
@@ -25,6 +32,7 @@ const GenreMenu = ({onGenreSelect}) => {
     const selectedGenre = event.target.value;
     setGenre(selectedGenre);
     onGenreSelect(selectedGenre)
+    navigate(`${location.pathname}?genre=${selectedGenre}`);
   }
 
   if (error) return <p>"An error has occurred"</p>;
