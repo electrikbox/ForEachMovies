@@ -9,6 +9,6 @@ RUN npm install -g sass react-router-dom react-paginate axios
 COPY . .
 
 # RUN npm run build
-# EXPOSE 3000
+EXPOSE 3000
 
 CMD ["npm", "start"]
