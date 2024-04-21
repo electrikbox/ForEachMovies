@@ -10,7 +10,7 @@ import MoviesGenre from './components/MoviesGenre';
 import SearchResults from './components/SearchResultsPage';
 import ErrorPage from './components/ErrorPage';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
+// import { ReactQueryDevtools } from 'react-query/devtools';
 import { SearchProvider } from './components/contexts/SearchContext';
 
 
@@ -33,7 +33,7 @@ const App = () => {
           </Routes>
           <Footer />
         </BrowserRouter>
-        <ReactQueryDevtools initialIsOpen={false} />
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         </SearchProvider>
       </QueryClientProvider>
     </React.StrictMode>
