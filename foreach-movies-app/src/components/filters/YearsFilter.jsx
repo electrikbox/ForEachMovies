@@ -1,11 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 
+/**
+ * Represents a filter component for selecting years.
+ *
+ * @param {Function} props.onYearSelect - The callback function to be called when a year is selected.
+ * @returns {JSX.Element} The YearsFilter component.
+ */
 const YearsFilter = ({ onYearSelect }) => {
   const [searchParams] = useSearchParams();
-  const [selectedYear, setSelectedYear] = useState(searchParams.get('year') || '');
+  const [selectedYear, setSelectedYear] = useState(searchParams.get('year') || 2024);
 
+  // Generates a list of years from the start year to the current year.
   const generateYearList = () => {
     const currentYear = new Date().getFullYear();
     const startYear = 1900;
@@ -18,20 +25,16 @@ const YearsFilter = ({ onYearSelect }) => {
 
   const years = generateYearList();
 
+  // Handles the change event when a year is selected.
   const handleYearChange = (event) => {
     const selectedYear = event.target.value;
     setSelectedYear(selectedYear);
     onYearSelect(selectedYear);
   };
 
-  useEffect(() => {
-    window.localStorage.setItem('year', selectedYear);
-  }, [selectedYear]);
-
   return (
     <div className="select">
       <select className="format" name="year-filter" id="year-filter" onChange={handleYearChange} value={selectedYear}>
-        <option value="" disabled>Choose a year...</option>
         {years.map((year) => (
           <option key={year} value={year}>{year}</option>
         ))}

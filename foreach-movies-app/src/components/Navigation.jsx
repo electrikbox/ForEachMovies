@@ -1,9 +1,7 @@
+/**
+ * Renders a navigation component bar with menu items.
+ */
 const Navigation = () => {
-
-  const resetStorage = () => {
-    window.localStorage.clear();
-  }
-
   return (
     <nav role="navigation">
       <div id="menuToggle">
@@ -12,9 +10,9 @@ const Navigation = () => {
         <span></span>
         <span></span>
         <ul id="menu">
-          <li><a href="/" onClick={resetStorage}>Home</a></li>
-          <li><a href="/movies" onClick={resetStorage}>Movies</a></li>
-          <li><a href="/moviesgenre" onClick={resetStorage}>Genres</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/movies">Movies</a></li>
+          <li><a href="/moviesgenre">Genres</a></li>
         </ul>
       </div>
     </nav>
