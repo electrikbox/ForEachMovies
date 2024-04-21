@@ -593,7 +593,14 @@ button:hover {
   flex-direction: row;
   align-items: center;
   gap: 1em;
-  margin-bottom: 1em;
+  margin-top: 1em;
+}
+.movie-detail .detail-content .detail-infos a {
+  text-decoration: none;
+  color: #3b7e91;
+}
+.movie-detail .detail-content .detail-infos a:hover {
+  color: rgba(59, 126, 145, 0.7);
 }
 .movie-detail .detail-content .original-title {
   font-size: 1.2em;
@@ -614,6 +621,11 @@ button:hover {
   width: 100%;
   margin-top: 2em;
 }
+@media screen and (max-width: 768px) {
+  .movie-detail .detail-content .detail-bottom {
+    flex-direction: column;
+  }
+}
 .movie-detail .detail-content .detail-bottom .back {
   width: 7em;
 }
@@ -623,6 +635,11 @@ button:hover {
   flex-wrap: wrap;
   width: 100%;
   gap: 0.5em;
+}
+@media screen and (max-width: 768px) {
+  .movie-detail .detail-content .genres {
+    justify-content: center;
+  }
 }
 .movie-detail .detail-content .genres li {
   display: inline;

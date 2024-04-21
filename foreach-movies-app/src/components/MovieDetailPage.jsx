@@ -47,6 +47,12 @@ const MovieDetail = () => {
                   <p>{data.original_title}</p>
                 </div>
                 <div className='detail-infos'>
+                  <h3>Country :</h3>
+                  {data.origin_country && data.origin_country.map((country) => (
+                    <p>{country}</p>
+                  ))}
+                </div>
+                <div className='detail-infos'>
                   <h3>Release date :</h3>
                   <p>{data.release_date}</p>
                 </div>
@@ -54,8 +60,14 @@ const MovieDetail = () => {
                   <h3>Note:</h3>
                   {data.vote_count > 0 ? <p>{Math.round(Number(data.vote_average))}/10</p> : <p>no note</p>}
                 </div>
-                <h3>Overview:</h3>
+                <h3 style={{marginTop: "1em"}}>Overview:</h3>
                 <p className='overview'>{data.overview || "No overview"}</p>
+                {data.homepage && (
+                  <div className='detail-infos'>
+                    <h3>Link :</h3>
+                    <a href={data.homepage} target="_blank" rel="noopener noreferrer">{data.homepage}</a>
+                  </div>
+                )}
               </div>
               <div className='detail-bottom'>
                 {data.genres && (
