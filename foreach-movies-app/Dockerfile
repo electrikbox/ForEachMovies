@@ -4,8 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 RUN npm install
-RUN npm install axios
-RUN npm install -g sass react-router-dom react-paginate
+RUN npm install -g sass react-router-dom react-paginate axios
 
 COPY . .
 
