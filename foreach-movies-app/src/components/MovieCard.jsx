@@ -18,7 +18,7 @@ const MovieItem = ({ movie }) => {
     <li key={movie.id} className='movie-card'>
       <h2 className='movie-title'>{movie.title}</h2>
       <img
-        src={movie.poster_path ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` : '/no-poster.jpg'}
+        src={movie.poster_path ? `https://image.tmdb.org/t/p/w300${movie.poster_path}` : '/no-poster.jpg'}
         alt={movie.title}
       />
       <TruncateText
