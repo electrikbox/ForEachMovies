@@ -15,10 +15,10 @@ const Header = () => {
   return (
     <header className="App-header">
       <div className='logo-searchbar'>
-        <a href="/"><img src="/logo.svg" className="App-logo" alt="logo" /></a>
+        <a href="/"><img src="/fm-logo.png" className="App-logo" alt="logo" /></a>
         {!isHomePage && (
           <div className='search-bar'>
-            <img className="search-logo" src="./search.svg" alt="search" />
+            <img className="search-logo" src="/search.svg" alt="search" />
             <SearchBar />
           </div>
         )}

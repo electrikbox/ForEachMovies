@@ -14,15 +14,13 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: rgb(210, 210, 210);
+    background-color: rgb(204, 204, 204);
     overflow-x: hidden;
-    // min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
 main {
-    // padding: 1vh;
     display: flex;
     flex: 1;
     flex-direction: column;

@@ -48,7 +48,8 @@ const MovieDetail = () => {
                 </div>
                 <div className='detail-infos'>
                   <h3>Country :</h3>
-                  <p>{data.origin_country.join(', ')}</p>
+                  {data.production_countries && <p>{data.origin_country.join(', ')}</p>}
+                  {/* // <p>{data.origin_country.join(', ')}</p> */}
                 </div>
                 <div className='detail-infos'>
                   <h3>Release date :</h3>
