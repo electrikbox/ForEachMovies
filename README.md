@@ -67,7 +67,7 @@ Page displaying the search results as a list of cards with:
 - the rating
 - a button to go to the details page
 
-If the user goes directly to `http://foreachmovies.electrikbox.fr/movies/search`, they will see a message asking them to perform a search (with the search bar in the header).
+If you go directly to `http://foreachmovies.electrikbox.fr/movies/search`, you will see a message asking to perform a search (with the search bar in the header).
 
 
 ### Movie Detail Page
@@ -85,13 +85,13 @@ Page containing more information about the movie:
 - list of movie genres
 - back button
 
-By clicking on a genre, the user will be redirected to the next URL:
+By clicking on a genre, you will be redirected to the next URL:
 
 ### Movies by Genre Page
 ```
 http://foreachmovies.electrikbox.fr/moviesgenre
 ```
-Page containing a dropdown menu with the list of genres provided by the API, once the genre is chosen
+Page containing a dropdown menu with the list of genres provided by the API, once the genre is chosen, the list of movies with that genre appears.
 
 ### Movies Page
 ```
