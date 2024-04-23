@@ -1,14 +1,17 @@
-FROM node:alpine
+FROM node:alpine as build
 
 WORKDIR /app
 
 COPY package*.json ./
 RUN npm install
-RUN npm install -g sass react-router-dom react-paginate axios
-
+RUN npm install -g sass axios
 COPY . .
+RUN npm run build
 
-# RUN npm run build
-EXPOSE 3000
+FROM nginx:1.21.0-alpine
 
-CMD ["npm", "start"]
+COPY foreach.conf /etc/nginx/conf.d/foreachmovies.conf
+COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
