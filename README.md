@@ -37,8 +37,9 @@ docker build -t foreachmovies .
 ```
 - Run the docker container
 ```
-docker run -p 3000:3000 foreachmovies
+docker run -p 80:80 foreachmovies
 ```
+Now you can go to `http://localhost/` and navigate on each page ;)
 
 ## 📑 Features
 Here's the available urls:
