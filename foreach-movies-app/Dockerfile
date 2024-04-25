@@ -15,3 +15,6 @@ COPY --from=build /app/build /usr/share/nginx/html
 EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
+
+# docker build -t foreachmovies .
+# docker run -p 80:80 foreachmovies
