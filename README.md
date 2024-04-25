@@ -31,6 +31,33 @@ From the "foreach-movies-app" directory
 API_KEY=xxxxxxxxxxxxxxxxxxxx
 ```
 
+### Docker-compose for development
+```
+docker-compose up -d foreach-movies-dev
+```
+then wait a moment and go to `http://localhost:3000/`
+you can stop it with:
+```
+docker-compose down foreach-movies-dev
+```
+
+### With the Dockerfile for development
+- create the image:
+```
+# docker build -f Dockerfile.dev -t foreach-movies-dev .
+```
+- then launch it:
+```
+docker run -it -p 3000:3000 -v ${PWD}:/usr/src/app \
+-v /usr/src/app/node_modules \
+-e WATCHPACK_POLLING=true foreach-movies-dev
+```
+you can stop it with:
+```
+docker stop <container_id>
+```
+
+### Docker for deployement
 - Create the docker image for the app
 ```
 docker build -t foreachmovies .
@@ -39,7 +66,6 @@ docker build -t foreachmovies .
 ```
 docker run -p 80:80 foreachmovies
 ```
-Now you can go to `http://localhost/` and navigate on each page ;)
 
 ## 📑 Features
 Here's the available urls:
