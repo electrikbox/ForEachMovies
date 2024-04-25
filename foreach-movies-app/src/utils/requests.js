@@ -13,7 +13,7 @@ const api = axios.create({
 
 //Request search movies.
 export const getSearchMovies = async (query, page) => {
-  const response = await api.get('/search/movie?include_adult=false&language=en-US', {
+  const response = await api.get('/search/movie?include_adult=false&language=fr-FR', {
     params: { query, page, },
   })
   return response.data;
@@ -21,7 +21,7 @@ export const getSearchMovies = async (query, page) => {
 
 //Request for movies page.
 export const getMovies = async (primary_release_year, page, sort_by, with_genres) => {
-  const response = await api.get('discover/movie?include_adult=false&language=en-US', {
+  const response = await api.get('discover/movie?include_adult=false&language=fr-FR', {
     params: { primary_release_year, page, sort_by, with_genres },
   })
   return response.data;
@@ -29,13 +29,13 @@ export const getMovies = async (primary_release_year, page, sort_by, with_genres
 
 //Request amm movies genres.
 export const getMoviesGenres = async () => {
-  const response = await api.get('genre/movie/list?include_adult=false&language=en-US')
+  const response = await api.get('genre/movie/list?include_adult=false&language=fr-FR')
   return response.data;
 }
 
 //Request for all movies with a genre.
 export const getMoviesByGenre = async (with_genres, page) => {
-  const response = await api.get('discover/movie?include_adult=false&language=en-US', {
+  const response = await api.get('discover/movie?include_adult=false&language=fr-FR', {
     params: { with_genres, page },
   })
   return response.data;
@@ -43,12 +43,12 @@ export const getMoviesByGenre = async (with_genres, page) => {
 
 //Request all movies regions. (for a future feature)
 export const getMoviesRegions = async () => {
-  const response = await api.get('watch/providers/regions?language=en-US')
+  const response = await api.get('watch/providers/regions?language=fr-FR')
   return response.data;
 }
 
 //Request movie details.
 export const getMovieDetail = async (id) => {
-  const response = await api.get(`/movie/${id}?include_adult=false&language=en-US`)
+  const response = await api.get(`/movie/${id}?include_adult=false&language=fr-FR`)
   return response.data;
 }
