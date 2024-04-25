@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  app:
+  foreach-movies-dev:
     build:
       context: .
       dockerfile: Dockerfile.dev
@@ -12,3 +12,5 @@ services:
       - /usr/src/app/node_modules
     environment:
       - WATCHPACK_POLLING=true
+
+# docker-compose up -d foreach-movies-dev
