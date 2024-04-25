@@ -41,6 +41,7 @@ const Movies = () => {
     searchParams.set('genre', genre);
     setSearchParams(searchParams);
     refetch();
+    // eslint-disable-next-line
   }, [page, year, order, genre]);
 
   useEffect(() => {

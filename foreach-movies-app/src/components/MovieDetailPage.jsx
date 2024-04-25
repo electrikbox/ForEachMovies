@@ -26,6 +26,7 @@ const MovieDetail = () => {
 
   useEffect(() => {
     refetch()
+    // eslint-disable-next-line
   }, [param.id]);
 
   if (error) return <p className='error'>An error has occurred</p>;

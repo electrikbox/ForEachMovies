@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { getSearchMovies } from '../utils/requests';
 import { useSearchContext } from './contexts/SearchContext';
@@ -16,7 +16,6 @@ const SearchResultsPage = () => {
   const [page, setPage] = useState(searchParams.get('page') || 1);
   const [query, setQuery] = useState(searchParams.get('query') || '');
   const { triggerNewSearch } = useSearchContext();
-  const location = useLocation();
 
   // Fetches all movies and stores the result in the `data` state variable.
   const { status, data, error, refetch, isFetching } = useQuery(
@@ -41,6 +40,7 @@ const SearchResultsPage = () => {
       setSearchParams({ query, page });
       refetch();
     }
+    // eslint-disable-next-line
   }, [query, page]);
 
   if (error) return <p className='error'>An error has occurred</p>;
