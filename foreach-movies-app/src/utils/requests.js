@@ -27,7 +27,7 @@ export const getMovies = async (primary_release_year, page, sort_by, with_genres
   return response.data;
 }
 
-//Request amm movies genres.
+//Request all movies genres.
 export const getMoviesGenres = async () => {
   const response = await api.get('genre/movie/list?include_adult=false&language=fr-FR')
   return response.data;
