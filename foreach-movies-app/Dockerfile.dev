@@ -1,0 +1,14 @@
+FROM node:12.18.2
+
+RUN mkdir /usr/src/app
+COPY . /usr/src/app
+WORKDIR /usr/src/app
+
+RUN npm install
+# RUN npm install -g sass axios
+
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
+CMD ["npm", "start"]
+
+# docker build -f Dockerfile.dev -t foreach-movies-dev .
+# docker run -it -p 3000:3000 -v ${PWD}:/usr/src/app -v /usr/src/app/node_modules -e WATCHPACK_POLLING=true foreach-movies-dev
