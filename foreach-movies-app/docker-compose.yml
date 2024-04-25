@@ -14,3 +14,4 @@ services:
       - WATCHPACK_POLLING=true
 
 # docker-compose up -d foreach-movies-dev
+# docker-compose down foreach-movies-dev 
